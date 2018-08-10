@@ -1,4 +1,6 @@
 {
+  "eslint.autoFixOnSave": true,
+  "eslint.run": "onSave",
   "editor.formatOnSave": true,
   "prettier.arrowParens": "avoid",
   "prettier.printWidth": 120,
