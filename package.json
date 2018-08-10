@@ -1,0 +1,61 @@
+{
+  "name": "forever-paws",
+  "version": "1.0.0",
+  "description": "Find your forever pal from a list of animals in shelters near you",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "set NODE_ENV=test&& jest --watch",
+    "start": "node server/index.js",
+    "react-dev": "webpack -d --watch",
+    "server-dev": "nodemon server/index.js",
+    "heroku-postbuild": "webpack -p --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FacinateTech/Forever-Paws.git"
+  },
+  "author": "FacinateTech",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FacinateTech/Forever-Pawsissues"
+  },
+  "homepage": "https://github.com/FacinateTech/Forever-Paws#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth20": "^1.0.0",
+    "pg": "^7.4.3",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "typeorm": "^0.2.7"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "enzyme": "^3.4.1",
+    "jest": "^23.4.2",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  },
+  "engines": {
+    "node": "8.11.3"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/test_setup.js"
+  }
+}
