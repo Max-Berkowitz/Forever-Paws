@@ -15,7 +15,7 @@ app.use(
     cookie: {
       maxAge: 3600000, // one hour
     },
-  }),
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());

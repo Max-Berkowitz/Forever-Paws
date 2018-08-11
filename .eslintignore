@@ -1,7 +1,3 @@
 test_setup.js
-<<<<<<< HEAD
 bundle.js
 *.test*
-=======
-bundle.js
->>>>>>> eslint config and test
