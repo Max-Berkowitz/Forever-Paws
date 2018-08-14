@@ -3,6 +3,8 @@
 *.DS_Store
 bundle.js
 server.js
+.idea/
+.vscode/
 build/
-package-lock.json
-*.log
+tmp/
+temp/
