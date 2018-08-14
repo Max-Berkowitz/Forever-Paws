@@ -1,3 +1,4 @@
 test_setup.js
 bundle.js
+server.js
 *.test*

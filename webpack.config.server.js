@@ -1,15 +1,18 @@
 const { DefinePlugin } = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
 module.exports = {
-  context: path.resolve(__dirname, 'client/src'),
-  entry: {
-    app: './index.jsx',
-  },
+  context: path.resolve(__dirname, 'server'),
+  entry: './index.js',
   output: {
-    path: path.resolve(__dirname, 'client/dist/assets'),
-    filename: 'bundle.js',
-    publicPath: '/assets',
+    path: path.resolve(__dirname, 'server/dist'),
+    filename: 'server.js',
+  },
+  target: 'node',
+  node: {
+    __dirname: false,
+    __filename: false,
   },
   module: {
     rules: [
@@ -19,7 +22,7 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ['env', 'react'], plugins: ['transform-object-rest-spread', 'async-to-promises'] },
+            options: { presets: ['env', 'react'], plugins: ['transform-object-rest-spread'] },
           },
         ],
       },
@@ -28,7 +31,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-
+  externals: nodeExternals(),
+  devtool: 'source-map',
   plugins: [
     new DefinePlugin({
       'process.env': JSON.stringify(process.env),

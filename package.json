@@ -6,9 +6,10 @@
   "scripts": {
     "test": "set NODE_ENV=test&& jest",
     "test-dev": "set NODE_ENV=test&& jest --watch",
-    "start": "node server/index.js",
-    "react-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
+    "start": "node server/dist/server.js",
+    "start-dev": "nodemon server/dist/server.js",
+    "react-dev": "webpack -d --watch --optimize-minimize --optimize-occurrence-order --optimize-dedupe --config webpack.config.js",
+    "server-dev": "webpack -d --watch --optimize-minimize --optimize-occurrence-order --optimize-dedupe --config webpack.config.server.js",
     "heroku-postbuild": "webpack -p --progress",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
@@ -35,13 +36,18 @@
     "pg": "^7.4.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "typeorm": "^0.2.7"
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "typeorm": "^0.2.7",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
+    "babel-plugin-async-to-promises": "^1.0.5",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^1.0.0",

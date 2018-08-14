@@ -1,11 +1,15 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-// const util = require('./utils/utils');
+import express from 'express';
+import session from 'express-session';
+import passport from 'passport';
+import api from './api';
+import routeHTML from './routeHTML';
+import template from './template';
+
 const config = process.env.NODE_ENV === 'production' ? process.env : require('../../config/config');
 
 const app = express();
+
+app.disable('x-powered-by');
 
 app.use(
   session({
@@ -20,9 +24,13 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(`${__dirname}/../../client/dist`));
+app.use('/api', api);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use('/assets', express.static(`${__dirname}/../../client/dist/assets`));
+
+app.get('*', (req, res) => {
+  const html = routeHTML(req.url);
+  res.send(template(html));
+});
 
 module.exports = app;

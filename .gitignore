@@ -2,6 +2,7 @@
 /config
 *.DS_Store
 bundle.js
+server.js
 build/
 package-lock.json
 *.log
