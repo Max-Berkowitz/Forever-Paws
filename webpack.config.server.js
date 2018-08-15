@@ -22,7 +22,10 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ['env', 'react'], plugins: ['transform-object-rest-spread'] },
+            options: {
+              presets: ['env', 'react'],
+              plugins: ['transform-object-rest-spread', 'transform-runtime'],
+            },
           },
         ],
       },

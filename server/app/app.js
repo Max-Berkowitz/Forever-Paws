@@ -1,6 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
+import bodyParser from 'body-parser';
 import api from './api';
 import routeHTML from './routeHTML';
 import template from './template';
@@ -23,6 +24,9 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', api);
 
