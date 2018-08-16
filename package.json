@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/FacinateTech/Forever-Paws#readme",
   "dependencies": {
+    "@types/node": "^10.5.8",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
@@ -39,12 +40,17 @@
     "react-dom": "^16.4.2",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "reflect-metadata": "^0.1.10",
+    "styled-components": "^3.4.2",
+    "styled-container-component": "^2.0.0",
+    "styled-nav-component": "^2.0.0",
+    "styled-navbar-component": "^2.0.0",
+    "styled-system": "^3.0.2",
     "typeorm": "^0.2.7",
-    "webpack-node-externals": "^1.7.2",
-    "@types/node": "^10.5.8",
-    "reflect-metadata": "^0.1.10"
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
+    "@types/node": "^8.0.29",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.1.5",
@@ -59,18 +65,17 @@
     "enzyme-adapter-react-16": "^1.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
-    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-prettier": "^2.10.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
     "husky": "^0.14.3",
     "jest": "^23.4.2",
     "style-loader": "^0.22.1",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
     "ts-node": "3.3.0",
-    "@types/node": "^8.0.29",
-    "typescript": "2.5.2"
+    "typescript": "2.5.2",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
   },
   "engines": {
     "node": "8.11.3"
