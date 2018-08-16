@@ -2,7 +2,7 @@
   "name": "forever-paws",
   "version": "1.0.0",
   "description": "Find your forever pal from a list of animals in shelters near you",
-  "main": "webpack.config.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "set NODE_ENV=test&& jest",
     "test-dev": "set NODE_ENV=test&& jest --watch",
@@ -11,7 +11,7 @@
     "react-dev": "webpack -d --watch --optimize-minimize --optimize-occurrence-order --optimize-dedupe --config webpack.config.js",
     "server-dev": "webpack -d --watch --optimize-minimize --optimize-occurrence-order --optimize-dedupe --config webpack.config.server.js",
     "start-db": "ts-node src/index.ts",
-    "heroku-postbuild": "webpack -p --progress --optimize-minimize --optimize-occurrence-order --optimize-dedupe",
+    "heroku-postbuild": "webpack -p --progress --optimize-minimize --optimize-occurrence-order --optimize-dedupe --config webpack.config.js && webpack -p --progress --optimize-minimize --optimize-occurrence-order --optimize-dedupe --config webpack.config.server.js",
     "lint": "eslint .",
     "lint-fix": "eslint . --fix",
     "prepush": "npm run lint && npm test"

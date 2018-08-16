@@ -1,3 +1,5 @@
+const respondError = (res, status, err, message) => res.status(status).send({ error: err, serverMessage: message });
+
 const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errStatus = 404) => async (req, res) => {
   const dbFunctionTuples = Object.entries(dbFunctions);
   try {
@@ -9,7 +11,7 @@ const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errSta
     }, {});
     res.status(status).send(response);
   } catch (e) {
-    res.status(errStatus).send({ error: e, message: errMessage });
+    respondError(res, e, errStatus, errMessage);
   }
 };
 
@@ -18,9 +20,23 @@ const postRes = (dbFunction, errMessage = 'Incorrect Format', status = 201, errS
     await dbFunction(req.body);
     res.sendStatus(status);
   } catch (e) {
-    res.status(errStatus).send({ error: e, message: errMessage });
+    respondError(res, e, errStatus, errMessage);
+  }
+};
+
+const patchRes = (dbFunction, errMessage = 'Item Not Found Or Incorrect Format', status = 204, errStatus = 400) =>
+  postRes(dbFunction, errMessage, status, errStatus);
+
+const deleteRes = (dbFunction, errMessage = 'Item Not Found', status = 204, errStatus = 404) => async (req, res) => {
+  try {
+    await dbFunction(req.query);
+    res.sendStatus(status);
+  } catch (e) {
+    respondError(res, e, errStatus, errMessage);
   }
 };
 
 exports.getRes = getRes;
 exports.postRes = postRes;
+exports.patchRes = patchRes;
+exports.deleteRes = deleteRes;

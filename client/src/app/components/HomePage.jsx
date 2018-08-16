@@ -8,48 +8,7 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profileQueue: [
-        {
-          name: 'Peter',
-          breed: 'golden corgie',
-          age: '3 years old',
-          description: 'Lets skip the small talk and go for a walk',
-          picture: ['https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'],
-          location: '20057',
-        },
-        {
-          name: 'Bones',
-          breed: 'bulldog',
-          age: '2 years old',
-          description: 'Lets play fetch',
-          picture: ['https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'],
-          location: '45693',
-        },
-        {
-          name: 'Rover',
-          breed: 'golden corgie',
-          age: '1 years old',
-          description: 'Cute and fluffy',
-          picture: ['https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'],
-          location: '82179',
-        },
-        {
-          name: 'Spot',
-          breed: 'pug',
-          age: '5 years old',
-          description: 'Friendly and playful',
-          picture: ['https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'],
-          location: '90210',
-        },
-        {
-          name: 'Last Dog',
-          breed: 'Last Dog',
-          age: 'Last Dog',
-          description: 'Last Dog',
-          picture: ['https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg'],
-          location: 'Last Dog',
-        },
-      ],
+      profileQueue: [],
       currentProfileIndex: 0,
       currentProfileView: {},
     };
@@ -62,27 +21,17 @@ class HomePage extends Component {
     };
   }
 
-  componentDidMount() {
-    const { profileQueue } = this.state;
-    axios
-      .post('api/animal', {
-        profileQueue,
-      })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log('post error', error);
+  async componentDidMount() {
+    const Console = console;
+    try {
+      const { data } = await axios.get('/api/animals');
+      this.setState({
+        profileQueue: data.animals,
       });
-    axios
-      .get('api/animals')
-      .then(response => {
-        this.setState({
-          profileQueue: response.data,
-        });
-      })
-      .catch(error => console.log(error));
-    this.nextPet();
+      this.nextPet();
+    } catch (e) {
+      Console.log(e);
+    }
   }
 
   handleClick(e) {
@@ -92,10 +41,17 @@ class HomePage extends Component {
 
   nextPet() {
     const { profileQueue, currentProfileIndex } = this.state;
-    this.setState({
-      currentProfileView: profileQueue[currentProfileIndex],
-      currentProfileIndex: currentProfileIndex + 1,
-    });
+    if (currentProfileIndex === profileQueue.length) {
+      this.setState({
+        currentProfileView: profileQueue[0],
+        currentProfileIndex: 0,
+      });
+    } else {
+      this.setState({
+        currentProfileView: profileQueue[currentProfileIndex],
+        currentProfileIndex: currentProfileIndex + 1,
+      });
+    }
   }
 
   render() {

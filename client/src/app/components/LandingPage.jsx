@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  text-align: center;
-  justify-content: center;
   border-radius: 3px;
   padding: 0.25em 1em;
   background: transparent;
@@ -12,7 +10,7 @@ const Button = styled.button`
   border: 2px solid palevioletred;
 `;
 const LandingPage = () => (
-  <div style={{ 'text-align': 'center' }}>
+  <div style={{ textAlign: 'center' }}>
     <Link to="/pets">
       <Button type="button">Pets</Button>
     </Link>

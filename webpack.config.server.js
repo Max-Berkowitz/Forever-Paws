@@ -1,4 +1,3 @@
-const { DefinePlugin } = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
@@ -36,9 +35,4 @@ module.exports = {
   },
   externals: nodeExternals(),
   devtool: 'source-map',
-  plugins: [
-    new DefinePlugin({
-      'process.env': JSON.stringify(process.env),
-    }),
-  ],
 };

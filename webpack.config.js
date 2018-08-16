@@ -1,4 +1,3 @@
-const { DefinePlugin } = require('webpack');
 const path = require('path');
 
 module.exports = {
@@ -19,7 +18,10 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: { presets: ['env', 'react'], plugins: ['transform-object-rest-spread', 'async-to-promises'] },
+            options: {
+              presets: ['env', 'react'],
+              plugins: ['transform-object-rest-spread', 'async-to-promises', 'transform-runtime'],
+            },
           },
         ],
       },
@@ -28,10 +30,4 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-
-  plugins: [
-    new DefinePlugin({
-      'process.env': JSON.stringify(process.env),
-    }),
-  ],
 };
