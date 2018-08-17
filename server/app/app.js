@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', api);
 
-app.use('/assets', express.static(`${__dirname}/../../client/dist/assets`));
+app.use('/dist', express.static(`${__dirname}/../../client/dist/`));
 
 app.get('*', (req, res) => {
   const html = routeHTML(req.url);

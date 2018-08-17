@@ -6,9 +6,9 @@ module.exports = {
     app: './index.jsx',
   },
   output: {
-    path: path.resolve(__dirname, 'client/dist/assets'),
+    path: path.resolve(__dirname, 'client/dist/'),
     filename: 'bundle.js',
-    publicPath: '/assets',
+    publicPath: '/dist/',
   },
   module: {
     rules: [
@@ -18,10 +18,6 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              presets: ['env', 'react'],
-              plugins: ['transform-object-rest-spread', 'async-to-promises', 'transform-runtime'],
-            },
           },
         ],
       },

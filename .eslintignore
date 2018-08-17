@@ -1,4 +1,4 @@
 test_setup.js
-bundle.js
-server.js
+dist/
+routes.js
 *.test*

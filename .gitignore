@@ -1,8 +1,7 @@
 /node_modules
 /config
 *.DS_Store
-bundle.js
-server.js
+dist/
 .idea/
 .vscode/
 build/
