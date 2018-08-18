@@ -3,6 +3,7 @@ import axios from 'axios';
 import NavComponent from './navbar/navbar';
 import CardStack from './CardStack';
 import BottomLaunchPad from './BottomLaunchpad';
+import CardStackBottom from './CardStackBottom';
 
 class HomePage extends Component {
   constructor(props) {
@@ -11,9 +12,11 @@ class HomePage extends Component {
       profileQueue: [],
       currentProfileIndex: 0,
       currentProfileView: {},
+      nextProfileView: {},
     };
 
     this.nextPet = this.nextPet.bind(this);
+    this.fetchPets = this.fetchPets.bind(this);
 
     this.tempStyleDELETE = {
       margin: '5px',
@@ -21,54 +24,48 @@ class HomePage extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchPets();
+  }
+  
+  async fetchPets() {
     const Console = console;
+    const { profileQueue} = this.state;
     try {
       const { data } = await axios.get('/api/animals');
+      let temp = profileQueue.length;
       this.setState({
-        profileQueue: data.animals,
+        profileQueue: [...profileQueue,...data.animals],
       });
-      this.nextPet();
+      if(temp ===0) {
+        this.nextPet();
+      }
     } catch (e) {
       Console.log(e);
     }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    this.nextPet();
-  }
-
   nextPet() {
     const { profileQueue, currentProfileIndex } = this.state;
-    if (currentProfileIndex === profileQueue.length) {
+    console.log(profileQueue.length)
+    if (profileQueue.length-currentProfileIndex<=2) {
+      this.fetchPets();
+    } 
       this.setState({
-        currentProfileView: profileQueue[0],
-        currentProfileIndex: 0,
-      });
-    } else {
-      this.setState({
+        currentProfileIndex: currentProfileIndex+1,
         currentProfileView: profileQueue[currentProfileIndex],
-        currentProfileIndex: currentProfileIndex + 1,
+        nextProfileView: profileQueue[currentProfileIndex+1],
       });
-    }
+    
   }
 
   render() {
-    const { currentProfileView } = this.state;
-    // const Button = styled.button`
-    //   border-radius: 3px;
-    //   padding: 0.25em 1em;
-    //   margin: 0 1em;
-    //   background: transparent;
-    //   color: palevioletred;
-    //   border: 2px solid palevioletred;
-    // `;
-
+    const { currentProfileView, nextProfileView} = this.state;
     return (
       <div>
         <NavComponent />
-        <CardStack profileQueue={currentProfileView} />
+        <CardStack profileQueue={currentProfileView} nextPet={this.nextPet}/>
+        <CardStackBottom profileQueue={nextProfileView} />
         <BottomLaunchPad nextPet={this.nextPet} />
       </div>
     );

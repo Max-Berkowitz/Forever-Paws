@@ -7,3 +7,4 @@ const routes = routeOptions.map(({ path, component, exact }) => (
 ));
 
 export default () => <Switch>{routes}</Switch>;
+//
