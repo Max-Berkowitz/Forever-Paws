@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Logo from '../../images/pawLogo.svg';
+import Logo from '../../images/pawLogo';
 import Settings from './Settings';
 import Profile from './YourProfile';
 

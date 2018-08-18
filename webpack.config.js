@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx|svg)$/,
+        test: /\.(js|jsx)$/,
         exclude: [/node_modules/],
         use: [
           {
@@ -24,6 +24,6 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.svg'],
+    extensions: ['.js', '.jsx'],
   },
 };
