@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { getRes } from '../utils/utils';
-import { getAnimals } from '../../../src/helpers';
+import { getAnimals } from '../../../db/pets/pet';
 
 const animals = Router();
 
 animals.route('/').get(getRes({ animals: getAnimals }));
 
-module.exports = animals;
+export default animals;

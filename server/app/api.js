@@ -8,4 +8,4 @@ api.use('/animal', animal);
 
 api.use('/animals', animals);
 
-module.exports = api;
+export default api;

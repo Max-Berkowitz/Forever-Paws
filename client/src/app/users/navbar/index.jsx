@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Logo from './Logo';
+import Logo from '../../images/pawLogo.svg';
 import Settings from './Settings';
 import Profile from './YourProfile';
 
@@ -10,7 +10,6 @@ const Header = styled.header`
   width: 100%;
   background-color: #ffb3da;
 `;
-
 const Nav = styled.nav`
   position: relative;
   -webkit-transform: translateY(-50%);
@@ -20,22 +19,21 @@ const Nav = styled.nav`
   transform: translateY(-50%);
   top: 50%;
 `;
-const NavComponent = () => (
-  <Fragment>
-    <Header>
-      <Nav>
-        <Link to="/settings">
-          <Settings />
-        </Link>
-        <Link to="/">
-          <Logo />
-        </Link>
-        <Link to="/profile">
-          <Profile />
-        </Link>
-      </Nav>
-    </Header>
-  </Fragment>
+
+const NavBar = () => (
+  <Header>
+    <Nav>
+      <Link to="/settings">
+        <Settings />
+      </Link>
+      <Link to="/">
+        <Logo />
+      </Link>
+      <Link to="/profile">
+        <Profile />
+      </Link>
+    </Nav>
+  </Header>
 );
 
-export default NavComponent;
+export default NavBar;

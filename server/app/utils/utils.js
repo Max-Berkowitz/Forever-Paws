@@ -36,7 +36,4 @@ const deleteRes = (dbFunction, errMessage = 'Item Not Found', status = 204, errS
   }
 };
 
-exports.getRes = getRes;
-exports.postRes = postRes;
-exports.patchRes = patchRes;
-exports.deleteRes = deleteRes;
+export { getRes, postRes, patchRes, deleteRes };

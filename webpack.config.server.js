@@ -27,7 +27,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.svg'],
   },
   externals: nodeExternals(),
   devtool: 'source-map',

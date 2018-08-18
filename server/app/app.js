@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { static as Static } from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import bodyParser from 'body-parser';
@@ -30,11 +30,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/api', api);
 
-app.use('/dist', express.static(`${__dirname}/../../client/dist/`));
+app.use('/dist', Static(`${__dirname}/../../client/dist/`));
 
 app.get('*', (req, res) => {
   const html = routeHTML(req.url);
   res.send(template(html));
 });
 
-module.exports = app;
+export default app;

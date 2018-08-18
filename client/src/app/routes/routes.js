@@ -1,7 +1,7 @@
 import codeSplittingHelper from './codeSplittingHelper';
 
-const HomePage = codeSplittingHelper(() => import('./components/HomePage'));
-const LandingPage = codeSplittingHelper(() => import('./components/LandingPage'));
+const PetIndex = codeSplittingHelper(() => import('../users/routes/pet/index'));
+const LandingPage = codeSplittingHelper(() => import('../LandingPage'));
 
 export default [
   {
@@ -11,7 +11,7 @@ export default [
   },
   {
     path: '/pets',
-    component: HomePage,
+    component: PetIndex,
     exact: true,
   },
 ];
