@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   context: path.resolve(__dirname, 'client/src'),
@@ -13,7 +14,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|svg)$/,
         exclude: [/node_modules/],
         use: [
           {
@@ -26,4 +27,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react',
+    }),
+  ],
 };

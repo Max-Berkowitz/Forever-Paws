@@ -1,34 +1,41 @@
-import React from 'react';
-// import styled from 'styled-components';
-import { Container } from 'styled-container-component';
-import { Navbar, NavbarLink } from 'styled-navbar-component';
-import { Nav } from 'styled-nav-component';
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
+import Settings from './Settings';
+import Profile from './YourProfile';
 
-// const Nav = styled.a`
-//   position: fixed;
-//   width: 100%;
-//   backround: black;
-//   height: 56px;
-// `;
+const Header = styled.header`
+  height: 50px;
+  width: 100%;
+  background-color: #ffb3da;
+`;
+
+const Nav = styled.nav`
+  position: relative;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  top: 50%;
+`;
 const NavComponent = () => (
-  <Container fluid>
-    <Navbar expandSm light>
-      <Nav justified>
+  <Fragment>
+    <Header>
+      <Nav>
         <Link to="/settings">
-          <NavbarLink>
-            <span>&#9776;</span>
-          </NavbarLink>
+          <Settings />
         </Link>
         <Link to="/">
-          <NavbarLink light>Forever Paws</NavbarLink>
+          <Logo />
         </Link>
-        <Link to="/userProfile">
-          <NavbarLink light>Your Profile</NavbarLink>
+        <Link to="/profile">
+          <Profile />
         </Link>
       </Nav>
-    </Navbar>
-  </Container>
+    </Header>
+  </Fragment>
 );
 
 export default NavComponent;
