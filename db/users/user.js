@@ -1,15 +1,9 @@
 import User from './index';
 
-const saveUser = user =>
-  new Promise((resolve, reject) =>
-    new User({ username: user.username }).fetch().then(found => (found ? reject() : User.create(user).then(resolve)))
-  );
+const saveUser = user => User.forge(user).save();
 
-const getAllUsers = () =>
-  new Promise((resolve, reject) =>
-    User.fetchAll()
-      .then(found => resolve(JSON.parse(JSON.stringify(found))))
-      .catch(reject)
-  );
+const getMyInfo = ({ id }) => User.where({ id }).fetch();
 
-export { getAllUsers, saveUser };
+//! ^ change to use session
+
+export { getMyInfo, saveUser };

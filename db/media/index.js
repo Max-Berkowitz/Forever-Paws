@@ -10,8 +10,10 @@ db.knex.schema.hasTable('media').then(
         media.increments('id').primary();
         media.integer('petId');
         media.string('link');
+        media.timestamp('created_at');
+        media.timestamp('updated_at');
       })
-      .then(table => Console.log(table))
+      .then(table => `Media Table Created: ${Console.log(table)}`)
 );
 
 export default db.model('Media', db.Model.extend({ tableName: 'media', hasTimestamps: true }));

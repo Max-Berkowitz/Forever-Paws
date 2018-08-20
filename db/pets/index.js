@@ -9,14 +9,16 @@ db.knex.schema.hasTable('pets').then(
       .createTable('pets', pet => {
         pet.increments('id').primary();
         pet.string('name', 30);
-        pet.integer('userId');
         pet.boolean('adoptable').defaultTo(false);
-        pet.integer('likeCounter');
+        pet.integer('likeCounter').defaultTo(0);
         pet.string('breed');
-        pet.string('caption');
-        pet.string('weight');
+        pet.string('description');
+        pet.string('age');
+        pet.string('picture');
+        pet.timestamp('created_at');
+        pet.timestamp('updated_at');
       })
-      .then(table => Console.log(table))
+      .then(table => `Pets Table Created: ${Console.log(table)}`)
 );
 
 export default db.model('Pet', db.Model.extend({ tableName: 'pets', hasTimestamps: true }));

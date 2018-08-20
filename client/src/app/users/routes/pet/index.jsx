@@ -10,7 +10,6 @@ export default class extends Component {
     super(props);
     this.state = {
       profileQueue: [],
-      currentProfileIndex: 0,
       currentProfileView: {},
       nextProfileView: {},
     };
@@ -28,28 +27,26 @@ export default class extends Component {
     const { profileQueue } = this.state;
     try {
       const { data } = await get('/api/animals');
-      const temp = profileQueue.length;
       this.setState({
-        profileQueue: [...profileQueue, ...data.animals],
+        profileQueue: profileQueue.concat(data.animals),
       });
-      if (!temp) {
-        this.nextPet();
-      }
+      this.nextPet();
     } catch (e) {
       Console.log(e);
     }
   }
 
   nextPet() {
-    const { profileQueue, currentProfileIndex } = this.state;
-    if (profileQueue.length - currentProfileIndex <= 2) {
+    const { profileQueue, nextProfileView } = this.state;
+    if (profileQueue.length < 3) {
       this.fetchPets();
+    } else {
+      this.setState({
+        currentProfileView: nextProfileView.picture ? nextProfileView : profileQueue.splice(0, 1)[0],
+        nextProfileView: profileQueue[0],
+        profileQueue: profileQueue.slice(1),
+      });
     }
-    this.setState({
-      currentProfileIndex: currentProfileIndex + 1,
-      currentProfileView: profileQueue[currentProfileIndex],
-      nextProfileView: profileQueue[currentProfileIndex + 1],
-    });
   }
 
   render() {

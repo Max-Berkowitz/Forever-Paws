@@ -12,4 +12,6 @@ const getAnimals = () =>
       .catch(reject)
   );
 
+//! ^^^^^^^^^^^^^^^ fix both of these
+
 export { saveAnimal, getAnimals };
