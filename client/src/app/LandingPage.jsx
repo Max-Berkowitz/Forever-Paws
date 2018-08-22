@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { post } from 'axios';
@@ -60,7 +60,10 @@ const Button = styled.button`
 const LandingPage = () => (
   <div style={{ textAlign: 'center' }}>
     <a href="/auth/google">
-      <Button type="button">Login</Button>
+      <Button type="button">Login google</Button>
+    </a>
+    <a href="/auth/facebook">
+      <Button type="button">Login facebook</Button>
     </a>
     <button type="button" onClick={makeData}>
       Hello

@@ -12,6 +12,7 @@ db.knex.schema.hasTable('users').then(
         user.string('username');
         user.string('googleId').unique();
         user.string('firstName');
+        user.string('facebookId').unique();
         user.string('lastName');
         user.string('email');
         user.timestamp('created_at');
