@@ -29,6 +29,9 @@ const NavBar = () => (
       <Link to="/">
         <Logo />
       </Link>
+      <a href="/auth/logout">
+        <button type="button">Logout</button>
+      </a>
       <Link to="/profile">
         <Profile />
       </Link>

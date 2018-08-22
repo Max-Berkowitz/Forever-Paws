@@ -59,9 +59,9 @@ const Button = styled.button`
 `;
 const LandingPage = () => (
   <div style={{ textAlign: 'center' }}>
-    <Link to="/pets">
-      <Button type="button">Pets</Button>
-    </Link>
+    <a href="/auth/google">
+      <Button type="button">Login</Button>
+    </a>
     <button type="button" onClick={makeData}>
       Hello
     </button>

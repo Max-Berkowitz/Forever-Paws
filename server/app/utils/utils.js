@@ -1,3 +1,5 @@
+const checkUser = (req, res, next) => (req.session.passport || req.url === '/' ? next() : res.redirect('/'));
+
 const respondError = (res, err, status, message) => res.status(status).send({ error: err, serverMessage: message });
 
 const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errStatus = 404) => async (req, res) => {
@@ -36,4 +38,4 @@ const deleteRes = (dbFunction, errMessage = 'Item Not Found', status = 204, errS
   }
 };
 
-export { getRes, postRes, patchRes, deleteRes };
+export { checkUser, getRes, postRes, patchRes, deleteRes };

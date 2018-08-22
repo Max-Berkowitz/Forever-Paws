@@ -3,6 +3,8 @@ import session from 'express-session';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 import api from './api';
+import auth from './auth';
+import { checkUser } from './utils/utils';
 import routeHTML from './routeHTML';
 import template from './template';
 
@@ -28,11 +30,13 @@ app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/api', api);
-
 app.use('/dist', Static(`${__dirname}/../../client/dist/`));
 
-app.get('*', (req, res) => {
+app.use('/auth', auth);
+
+app.use('/api', checkUser, api);
+
+app.get('*', checkUser, (req, res) => {
   const html = routeHTML(req.url);
   res.send(template(html));
 });
