@@ -11,7 +11,7 @@ db.knex.schema.hasTable('users').then(
         user.boolean('shelter').defaultTo(false);
         user.string('username');
         user.string('googleId').unique();
-        user.integer('firstName');
+        user.string('firstName');
         user.string('lastName');
         user.string('email');
         user.timestamp('created_at');
