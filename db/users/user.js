@@ -6,16 +6,17 @@ const createOrFetchUser = async (request, accessToken, refreshToken, profile, do
   try {
     const user = await User.where({ googleId: profile.id }).fetch();
     if (user) {
-      return done(null, user.toJSON());
+      done(null, user.toJSON());
+    } else {
+      const newUser = await User.forge({
+        googleId: profile.id,
+        username: profile.displayName,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        email: profile.emails[0].value,
+      }).save();
+      done(null, newUser.toJSON());
     }
-    const newUser = await User.forge({
-      googleId: profile.id,
-      username: profile.displayName,
-      firstName: profile.name.givenName,
-      lastName: profile.name.familyName,
-      email: profile.emails[0].value,
-    }).save();
-    done(null, newUser.toJSON());
   } catch (e) {
     done(e);
   }
