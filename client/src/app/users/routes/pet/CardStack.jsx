@@ -235,9 +235,9 @@ class CardStack extends Component {
           }}
         >
           <ImgDiv>
-            <Img alt="dog" src={profileQueue.picture} />
+            <Img alt="dog" src={profile.picture} />
           </ImgDiv>
-          <Profile profile={profileQueue} />
+          <Profile profile={profile} />
         </CardStyle>
       </Fragment>
     );
