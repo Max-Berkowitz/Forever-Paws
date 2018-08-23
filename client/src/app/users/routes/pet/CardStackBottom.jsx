@@ -33,14 +33,14 @@ export default class extends Component {
   }
 
   render() {
-    const { profileQueue } = this.props;
+    const { profile } = this.props;
 
     return (
       <CardStyle2>
         <ImgDiv2>
-          <Img2 alt="dog" src={profileQueue.picture} />
+          <Img2 alt="dog" src={profile.picture} />
         </ImgDiv2>
-        {/* <Profile profile={profileQueue} /> */}
+        {/* <Profile profile={profile} /> */}
       </CardStyle2>
     );
   }

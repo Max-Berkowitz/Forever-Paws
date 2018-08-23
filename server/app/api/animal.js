@@ -6,6 +6,6 @@ const animal = Router();
 
 animal.route('/').post(postRes(saveAnimal));
 
-animal.route('/addLike').patch(patchRes(addLikeToPet));
+animal.patch('/addlike', patchRes(addLikeToPet));
 
 export default animal;

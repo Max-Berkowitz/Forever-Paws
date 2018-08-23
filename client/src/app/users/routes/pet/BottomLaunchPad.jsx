@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import dislike from '../../../images/dislike.png';
 import like from '../../../images/like.png';
 
+import { get } from 'axios';
+
 const LaunchpadStyle = styled.div`
   position: absolute;
   top: 85%;

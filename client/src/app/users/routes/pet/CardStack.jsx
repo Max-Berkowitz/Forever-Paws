@@ -76,7 +76,7 @@ class CardStack extends Component {
   }
 
   onRelease() {
-    const { profileQueue } = this.props;
+    const { profile } = this.props;
 
     const { xDelta } = this.state;
     const { nextPet } = this.props;
@@ -87,7 +87,7 @@ class CardStack extends Component {
       });
     } else {
       if (xDelta > 150) {
-        patch('/api/animal/addLike', { id: profileQueue.id });
+        patch('/api/animal/addlike', { id: profile.id });
       }
       // discard card
       this.setState({
@@ -217,7 +217,7 @@ class CardStack extends Component {
   }
 
   render() {
-    const { profileQueue } = this.props;
+    const { profile } = this.props;
 
     return (
       <Fragment>

@@ -54,8 +54,8 @@ export default class extends Component {
     return (
       <div style={{ 'background-image': 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: '100vh' }}>
         <NavComponent />
-        <CardStack profileQueue={currentProfileView} nextPet={this.nextPet} />
-        <CardStackBottom profileQueue={nextProfileView} />
+        <CardStack profile={currentProfileView} nextPet={this.nextPet} />
+        <CardStackBottom profile={nextProfileView} />
         <BottomLaunchPad nextPet={this.nextPet} />
       </div>
     );
