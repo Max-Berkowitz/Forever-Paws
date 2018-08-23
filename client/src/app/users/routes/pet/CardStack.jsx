@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { patch } from 'axios';
 import Profile from './Profile';
 
 /* eslint react/prop-types:0 */
@@ -72,6 +73,8 @@ class CardStack extends Component {
   }
 
   onRelease() {
+    const { profileQueue } = this.props;
+
     const { xDelta } = this.state;
     const { nextPet } = this.props;
     if (Math.abs(xDelta) < 150) {
@@ -80,6 +83,9 @@ class CardStack extends Component {
         yDelta: 0,
       });
     } else {
+      if (xDelta > 150) {
+        patch('/api/animal/addLike', { id: profileQueue.id });
+      }
       // discard card
       this.setState({
         renderCard: false,
@@ -118,14 +124,6 @@ class CardStack extends Component {
       circleTop: circleTop + top,
     }));
   }
-
-  // handleMouseMove(){
-  //   const {xDelta} = this.props;
-
-  //   if(xDelta>60) {
-  //     nextPet();
-  //   }
-  // }
 
   onUp() {
     this.isDragging = false;

@@ -9,4 +9,9 @@ const getAnimals = () =>
     qb.limit(3);
   }).fetchAll();
 
-export { saveAnimal, getAnimals };
+const addLikeToPet = async ({ id }) => {
+  const pet = await Pet.where({ id }).fetch();
+  await pet.set('likeCounter', pet.attributes.likeCounter + 1).save();
+};
+
+export { saveAnimal, getAnimals, addLikeToPet };
