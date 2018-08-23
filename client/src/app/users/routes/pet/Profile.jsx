@@ -40,7 +40,7 @@ export default class extends Component {
 
   render() {
     const { profile } = this.props;
-    const { name, age, breed, location, description } = profile;
+    const { name, age, breed, description } = profile;
     return (
       <ProfileStyle>
         <P1>
