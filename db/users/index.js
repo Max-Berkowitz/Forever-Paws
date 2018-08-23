@@ -15,10 +15,8 @@ db.knex.schema.hasTable('users').then(
         user.string('facebookId').unique();
         user.string('lastName');
         user.string('email');
-        user.timestamp('created_at');
-        user.timestamp('updated_at');
       })
       .then(table => `Users Table Created: ${Console.log(table)}`)
 );
 
-export default db.model('User', db.Model.extend({ tableName: 'users', hasTimestamps: true }));
+export default db.model('User', db.Model.extend({ tableName: 'users' }));

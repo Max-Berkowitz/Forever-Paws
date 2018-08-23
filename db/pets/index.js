@@ -15,10 +15,8 @@ db.knex.schema.hasTable('pets').then(
         pet.string('description');
         pet.string('age');
         pet.string('picture');
-        pet.timestamp('created_at');
-        pet.timestamp('updated_at');
       })
       .then(table => `Pets Table Created: ${Console.log(table)}`)
 );
 
-export default db.model('Pet', db.Model.extend({ tableName: 'pets', hasTimestamps: true }));
+export default db.model('Pet', db.Model.extend({ tableName: 'pets' }));
