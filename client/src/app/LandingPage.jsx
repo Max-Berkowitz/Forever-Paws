@@ -1,8 +1,12 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
+import bg from './images/bg.jpg';
+import tree from './images/pawtree.png';
 import { post } from 'axios';
+import goog from './images/goog.png';
+import fb from './images/fb.png';
 
 const sampleData = [
   {
@@ -51,23 +55,86 @@ const makeData = (e, i = 0) => {
 };
 
 const Button = styled.button`
+  float: 'right';
+  margin-right: 1em;
   border-radius: 3px;
   padding: 0.25em 1em;
   background: transparent;
-  color: palevioletred;
-  border: 2px solid palevioletred;
+  color: white;
+  border: 2px solid white;
 `;
+
+const styles = {
+  main: {
+    background: `url(${bg}) no-repeat`,
+    backgroundSize: '100% 850px',
+    paddingBottom: '1000px',
+  },
+
+  tree: {
+    // position: 'absolute',
+    top: '30%',
+    right: '0',
+    paddingTop: '20px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+
+  title: {
+    // position: 'absolute',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: '56px',
+  },
+
+  p: {
+    // position: 'absolute',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: '18px',
+    marginBottom: '0',
+  },
+};
+
 const LandingPage = () => (
-  <div style={{ textAlign: 'center' }}>
-    <a href="/auth/google">
-      <Button type="button">Login google</Button>
-    </a>
-    <a href="/auth/facebook">
-      <Button type="button">Login facebook</Button>
-    </a>
-    <button type="button" onClick={makeData}>
-      Hello
-    </button>
+  <div>
+    <div style={styles.main}>
+      <nav className="navbar navbar-light mx-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', padding: '28px' }}>
+        <a className="navbar-brand" style={{ color: '#fff', fontWeight: 'bold', fontSize: '32px' }} href="/">
+          Paws.
+        </a>
+        <div style={{ float: 'left' }}>
+          <a href="/auth/google">
+            <img src={goog} style={{ marginRight: '30px', color: 'white', height: '40px' }} alt="google" />
+          </a>
+          <a href="/auth/facebook">
+            <img src={fb} style={{ marginRight: '30px', color: 'white', height: '40px' }} alt="fb" />
+          </a>
+          <Button type="button" onClick={makeData}>
+            Load Data
+          </Button>
+        </div>
+      </nav>
+      <div className="container" style={{ maxWidth: '80%' }}>
+        <div className="row align-items-center">
+          <div className="col pb-5  mb-5 col-12-md">
+            <h1 style={styles.title}>Share your pets</h1>
+            <h1 style={styles.title}>Help others find a home.</h1>
+            <p style={styles.p} className="mt-2">
+              Paws is a community for pet lovers to share and view pictures of pets while serving as a platform to aid
+              the adoption of animals in need. As you browse through thousands of pictures of pets, Paws will
+              occasionally suggest pets near you available for adoption based on your preferences.
+            </p>
+            {/* <button className="btn btn-outline-light mt-4 mb-5" type="button">
+            Sign up
+          </button> */}
+          </div>
+          <div className="hidden-md-down visible col-6-lg align-items-center">
+            <img src={tree} style={styles.tree} alt="loading" />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 );
 

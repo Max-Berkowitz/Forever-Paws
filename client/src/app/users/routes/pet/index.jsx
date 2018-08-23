@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { get } from 'axios';
 import NavComponent from '../../navbar/index';
 import CardStack from './CardStack';
@@ -52,12 +52,12 @@ export default class extends Component {
   render() {
     const { currentProfileView, nextProfileView } = this.state;
     return (
-      <Fragment>
+      <div style={{ 'background-image': 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: '100vh' }}>
         <NavComponent />
         <CardStack profileQueue={currentProfileView} nextPet={this.nextPet} />
         <CardStackBottom profileQueue={nextProfileView} />
         <BottomLaunchPad nextPet={this.nextPet} />
-      </Fragment>
+      </div>
     );
   }
 }

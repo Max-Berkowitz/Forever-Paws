@@ -3,13 +3,33 @@ import styled from 'styled-components';
 
 /* eslint react/prop-types:0 */
 const ProfileStyle = styled.div`
-  height: ${window.outerHeight * 0.2}px;
-  border-radius: 4px;
-  margin: 0.2em;
-  padding: 0.5em 0.5em 0.5em 0.5em;
-  color: palevioletred;
-  border: 2px solid palevioletred;
-  background: orange;
+  position: absolute;
+  z-index: 2;
+  top: 70%;
+  width: 100%;
+  height: 30%;
+  overflow: hidden;
+  padding-top: 4%;
+  color: white;
+`;
+
+const P = styled.p`
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  margin: 0;
+  font-weight: 100;
+`;
+const Span = styled.span`
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  margin: 0;
+  font-weight: 100;
+`;
+const P1 = styled.p`
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 100;
+  margin: 0;
 `;
 
 export default class extends Component {
@@ -23,12 +43,16 @@ export default class extends Component {
     const { name, age, breed, location, description } = profile;
     return (
       <ProfileStyle>
-        <h1>
+        <P1>
           {name}, {age}
-        </h1>
-        <h4>{breed} </h4>
-        <h5> Location: {location} </h5>
-        <h5>{description} </h5>
+        </P1>
+        <Span style={{ float: 'left', 'font-style': 'italic' }}>{breed}</Span>{' '}
+        {/* <Span style={{ float: 'right' }}>zip: {location} </Span> */}
+        <P>
+          <br />
+          <br />
+          {`"${description}"`}
+        </P>
       </ProfileStyle>
     );
   }

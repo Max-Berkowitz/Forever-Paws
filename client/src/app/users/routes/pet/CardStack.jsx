@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { patch } from 'axios';
 import Profile from './Profile';
@@ -7,21 +7,24 @@ import Profile from './Profile';
 const CardStyle = styled.div`
   position: absolute;
   z-index: 2;
-  top: ${window.outerHeight * 0.1}px;
-  width: ${window.outerWidth - 20}px;
-  height: ${window.outerHeight * 0.8}px;
+  margin-left: 12%;
+  margin-right: 12%;
+  top: 12%;
+  width: 75%;
+  height: 70%;
   border-radius: 15px;
   overflow: hidden;
-  background: grey;
-  color: palevioletred;
-  border: 2px solid palevioletred;
 `;
 const ImgDiv = styled.div`
   position: relative;
+  height: ${window.outerHeight * 0.5}px;
+  border-radius: 15px;
+  background: black;
 `;
 const Img = styled.img`
-  width: auto;
-  height: ${window.outerHeight * 0.55}px;
+  max-width: auto;
+  max-height: 100%;
+  border-radius: 15px;
 `;
 
 class CardStack extends Component {
@@ -217,25 +220,26 @@ class CardStack extends Component {
     const { profileQueue } = this.props;
 
     return (
-      <CardStyle
-        onMouseDown={this.handleMouseDown}
-        onTouchStart={this.handleTouchStart}
-        onPointerDown={this.onDown}
-        onPointerMove={this.onMove}
-        onPointerUp={this.onUp}
-        onPointerCancel={this.onUp}
-        onGotPointerCapture={this.onGotCapture}
-        onLostPointerCapture={this.onLostCapture}
-        style={{
-          background: 'black',
-          transform: `${this.cardPos()}`,
-        }}
-      >
-        <ImgDiv>
-          <Img alt="dog" src={profileQueue.picture} />
-        </ImgDiv>
-        <Profile profile={profileQueue} />
-      </CardStyle>
+      <Fragment>
+        <CardStyle
+          onMouseDown={this.handleMouseDown}
+          onTouchStart={this.handleTouchStart}
+          onPointerDown={this.onDown}
+          onPointerMove={this.onMove}
+          onPointerUp={this.onUp}
+          onPointerCancel={this.onUp}
+          onGotPointerCapture={this.onGotCapture}
+          onLostPointerCapture={this.onLostCapture}
+          style={{
+            transform: `${this.cardPos()}`,
+          }}
+        >
+          <ImgDiv>
+            <Img alt="dog" src={profileQueue.picture} />
+          </ImgDiv>
+          <Profile profile={profileQueue} />
+        </CardStyle>
+      </Fragment>
     );
   }
 }
