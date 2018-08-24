@@ -5,6 +5,7 @@ const respondError = (res, err, status, message) => res.status(status).send({ er
 const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errStatus = 404) => async (req, res) => {
   const dbFunctionTuples = Object.entries(dbFunctions);
   try {
+    req.query.userId = req.session.passport.user;
     const datas = await Promise.all(dbFunctionTuples.map(tuple => tuple[1](req.query)));
     const response = datas.reduce((output, data, i) => {
       const obj = output;
@@ -19,7 +20,7 @@ const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errSta
 
 const postRes = (dbFunction, errMessage = 'Incorrect Format', status = 201, errStatus = 400) => async (req, res) => {
   try {
-    await dbFunction(req.body);
+    await dbFunction(req.body, req.session.passport.user);
     res.sendStatus(status);
   } catch (e) {
     respondError(res, e, errStatus, errMessage);

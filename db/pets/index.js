@@ -11,6 +11,7 @@ db.knex.schema.hasTable('pets').then(
         pet.string('name', 30);
         pet.boolean('adoptable').defaultTo(false);
         pet.integer('likeCounter').defaultTo(0);
+        pet.string('userId');
         pet.string('breed');
         pet.string('description');
         pet.string('age');
