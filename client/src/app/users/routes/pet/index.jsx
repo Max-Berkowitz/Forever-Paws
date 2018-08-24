@@ -23,7 +23,6 @@ export default class extends Component {
   }
 
   async fetchPets() {
-    const Console = console;
     const { profileQueue } = this.state;
     try {
       const { data } = await get('/api/animals');
@@ -32,7 +31,8 @@ export default class extends Component {
       });
       this.nextPet();
     } catch (e) {
-      Console.log(e);
+      // eslint-disable-next-line
+      console.log(e);
     }
   }
 

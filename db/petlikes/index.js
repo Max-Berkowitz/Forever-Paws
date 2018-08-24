@@ -1,7 +1,5 @@
 import db from '../index';
 
-const Console = console;
-
 db.knex.schema.hasTable('petlikes').then(
   exists =>
     exists ||
@@ -11,7 +9,8 @@ db.knex.schema.hasTable('petlikes').then(
         petLikes.integer('likes').defaultTo(1);
         petLikes.integer('petId');
       })
-      .then(table => `Users Table Created: ${Console.log(table)}`)
+      // eslint-disable-next-line
+      .then(table => `Users Table Created: ${console.log(table)}`)
 );
 
 const truncate = () => db.knex('petlikes').truncate();

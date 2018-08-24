@@ -1,7 +1,5 @@
 import db from '../index';
 
-const Console = console;
-
 db.knex.schema.hasTable('pets').then(
   exists =>
     exists ||
@@ -17,7 +15,8 @@ db.knex.schema.hasTable('pets').then(
         pet.string('age');
         pet.string('picture');
       })
-      .then(table => `Pets Table Created: ${Console.log(table)}`)
+      // eslint-disable-next-line
+      .then(table => `Pets Table Created: ${console.log(table)}`)
 );
 
 export default db.model('Pet', db.Model.extend({ tableName: 'pets' }));
