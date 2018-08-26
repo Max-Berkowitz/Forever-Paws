@@ -5,8 +5,9 @@ const respondError = (res, err, status, message) => res.status(status).send({ er
 const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errStatus = 404) => async (req, res) => {
   const dbFunctionTuples = Object.entries(dbFunctions);
   try {
-    req.query.userId = req.session.passport.user;
-    const datas = await Promise.all(dbFunctionTuples.map(tuple => tuple[1](req.query)));
+    const datas = await Promise.all(
+      dbFunctionTuples.map(tuple => tuple[1]({ ...req.query, userId: req.session.passport.user || req.session.user }))
+    );
     const response = datas.reduce((output, data, i) => {
       const obj = output;
       obj[dbFunctionTuples[i][0]] = data.toJSON();
@@ -20,15 +21,26 @@ const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errSta
 
 const postRes = (dbFunction, errMessage = 'Incorrect Format', status = 201, errStatus = 400) => async (req, res) => {
   try {
-    await dbFunction(req.body, req.session.passport.user);
+    await dbFunction(req.body, req.session.passport || req.session);
     res.sendStatus(status);
   } catch (e) {
     respondError(res, e, errStatus, errMessage);
   }
 };
 
-const patchRes = (dbFunction, errMessage = 'Item Not Found Or Incorrect Format', status = 204, errStatus = 400) =>
-  postRes(dbFunction, errMessage, status, errStatus);
+const patchRes = (
+  dbFunction,
+  errMessage = 'Item Not Found Or Incorrect Format',
+  status = 204,
+  errStatus = 400
+) => async (req, res) => {
+  try {
+    await dbFunction(req.body, req.params, req.session.passport || req.session);
+    res.sendStatus(status);
+  } catch (e) {
+    respondError(res, e, errStatus, errMessage);
+  }
+};
 
 const deleteRes = (dbFunction, errMessage = 'Item Not Found', status = 204, errStatus = 404) => async (req, res) => {
   try {

@@ -1,7 +1,16 @@
 import Pet from './index';
 import { addLikeForTodayToPetById } from '../petlikes/petLike';
 
-const saveAnimal = (pet, userId) => Pet.forge({ ...pet, userId }).save();
+const saveAnimal = (pet, { user, point }) => Pet.forge({ ...pet, userId: user, point }).save();
+
+const updateAnimal = async (petAttributes, { id }, { user }) => {
+  const pet = await Pet.where({ id }).fetch();
+  if (pet.attributes.userId === user) {
+    await pet.set(petAttributes).save();
+  }
+};
+
+const getAnimal = ({ id }) => Pet.where({ id }).fetch();
 
 const getAnimals = () =>
   Pet.query(qb => {
@@ -18,4 +27,4 @@ const addLikeToPet = async ({ id }) => {
   await addLikeForTodayToPetById(id);
 };
 
-export { saveAnimal, getAnimals, getAnimalsByUserId, addLikeToPet };
+export { saveAnimal, updateAnimal, getAnimal, getAnimals, getAnimalsByUserId, addLikeToPet };

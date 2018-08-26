@@ -1,49 +1,27 @@
 import React, { Component } from 'react';
 import { get } from 'axios';
-import styled from 'styled-components';
-
-const ImgDiv = styled.div`
-  position: relative;
-  height: ${window.outerHeight * 0.5}px;
-  border-radius: 15px;
-  background: black;
-`;
-const Img = styled.img`
-  max-width: auto;
-  max-height: 100%;
-  border-radius: 15px;
-`;
+import TopPetListEntry from './TopPetListEntry';
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = { topDogs: [] };
+    this.state = { dailyTop: [] };
   }
 
   async componentDidMount() {
-    const { data } = await get('/api/animals/dailytop');
-    this.setState({ topDogs: data.dailyTop });
+    const {
+      data: { dailyTop },
+    } = await get('/api/animals/dailytop');
+    this.setState({ dailyTop });
   }
 
   render() {
-    const { topDogs } = this.state;
+    const { dailyTop } = this.state;
     return (
       <div style={{ 'background-image': 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: '325vh' }}>
         <ul>
-          {topDogs.map(({ picture, name, age, likeCounter, breed }) => (
-            <li style={{ listStyleType: 'none', color: 'white', paddingTop: '40px' }}>
-              <ImgDiv>
-                <Img alt="dog" src={picture} />
-              </ImgDiv>
-              <span>
-                {name}, {age}
-              </span>
-              <br />
-              <span style={{ float: 'left', 'font-style': 'italic' }}>{breed}</span>
-              <br />
-              <span style={{ fontWeight: 'bold' }}>{`Like Count: ${likeCounter}`}</span>
-              <br />
-            </li>
+          {dailyTop.map(pet => (
+            <TopPetListEntry pet={pet} />
           ))}
         </ul>
       </div>

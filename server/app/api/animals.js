@@ -9,6 +9,6 @@ animals.route('/').get(getRes({ animals: getAnimals }));
 
 animals.get('/dailytop', getRes({ dailyTop: getTopPetsOfTheDay }));
 
-animals.get('/my', getRes(getAnimalsByUserId));
+animals.get('/my', getRes({ myPets: getAnimalsByUserId }));
 
 export default animals;
