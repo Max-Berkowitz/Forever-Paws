@@ -7,9 +7,10 @@ const animal = Router();
 animal.patch('/addlike', patchRes(addLikeToPet));
 
 animal
-  .route('/:id')
+  .route('/')
   .get(getRes({ pet: getAnimal }))
-  .post(postRes(saveAnimal))
-  .patch(patchRes(updateAnimal));
+  .post(postRes(saveAnimal));
+
+animal.patch('/:id', patchRes(updateAnimal));
 
 export default animal;
