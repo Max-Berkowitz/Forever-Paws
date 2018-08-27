@@ -6,7 +6,7 @@ const getRes = (dbFunctions, errMessage = 'Data Not Found', status = 200, errSta
   const dbFunctionTuples = Object.entries(dbFunctions);
   try {
     const datas = await Promise.all(
-      dbFunctionTuples.map(tuple => tuple[1]({ ...req.query, userId: req.session.passport.user || req.session.user }))
+      dbFunctionTuples.map(tuple => tuple[1](req.query, req.session.passport || req.session))
     );
     const response = datas.reduce((output, data, i) => {
       const obj = output;

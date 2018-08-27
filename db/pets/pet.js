@@ -19,7 +19,7 @@ const getAnimals = () =>
     qb.limit(3);
   }).fetchAll();
 
-const getAnimalsByUserId = ({ userId }) => Pet.where({ userId }).fetchAll();
+const getAnimalsByUserId = (body, { user }) => Pet.where({ userId: user }).fetchAll();
 
 const addLikeToPet = async ({ id }) => {
   const pet = await Pet.where({ id }).fetch();
