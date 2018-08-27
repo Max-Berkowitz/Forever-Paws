@@ -36,6 +36,8 @@ app.use('/auth', auth);
 
 app.use('/api', checkUser, api);
 
+app.get('/loginsuccess', (req, res) => res.redirect('/pets'));
+
 app.get('*', checkUser, (req, res) => {
   const html = routeHTML(req.url);
   res.send(template(html));

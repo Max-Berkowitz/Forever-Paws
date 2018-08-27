@@ -3,6 +3,7 @@ import codeSplittingHelper from './codeSplittingHelper';
 const PetIndex = codeSplittingHelper(() => import('../users/routes/pet/index'));
 const LandingPage = codeSplittingHelper(() => import('../LandingPage'));
 const TopDogs = codeSplittingHelper(() => import('../users/routes/topdogs/index'));
+const MyPets = codeSplittingHelper(() => import('../users/routes/mypets/index'));
 
 export default [
   {
@@ -18,6 +19,11 @@ export default [
   {
     path: '/topdogs',
     component: TopDogs,
+    exact: true,
+  },
+  {
+    path: '/mypets',
+    component: MyPets,
     exact: true,
   },
 ];

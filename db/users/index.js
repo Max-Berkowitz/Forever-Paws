@@ -1,7 +1,5 @@
 import db from '../index';
 
-const Console = console;
-
 db.knex.schema.hasTable('users').then(
   exists =>
     exists ||
@@ -16,7 +14,8 @@ db.knex.schema.hasTable('users').then(
         user.string('lastName');
         user.string('email');
       })
-      .then(table => `Users Table Created: ${Console.log(table)}`)
+      // eslint-disable-next-line
+      .then(table => `Users Table Created: ${console.log(table)}`)
 );
 
 export default db.model('User', db.Model.extend({ tableName: 'users' }));

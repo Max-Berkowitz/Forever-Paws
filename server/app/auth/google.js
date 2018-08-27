@@ -9,6 +9,6 @@ google.get(
   passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
-google.get('/callback', passport.authenticate('google', { failureRedirect: '/', successRedirect: '/pets' }));
+google.get('/callback', passport.authenticate('google', { failureRedirect: '/', successRedirect: '/loginsuccess' }));
 
 export default google;
