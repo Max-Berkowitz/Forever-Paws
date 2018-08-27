@@ -9,6 +9,9 @@ facebook.get(
   passport.authenticate('facebook', { scope: [] })
 );
 
-facebook.get('/callback', passport.authenticate('facebook', { failureRedirect: '/', successRedirect: '/pets' }));
+facebook.get(
+  '/callback',
+  passport.authenticate('facebook', { failureRedirect: '/', successRedirect: '/loginsuccess' })
+);
 
 export default facebook;
