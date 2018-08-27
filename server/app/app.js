@@ -1,4 +1,4 @@
-import express, { static as Static } from 'express';
+import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import bodyParser from 'body-parser';
@@ -30,7 +30,7 @@ app.use(passport.session());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/dist', Static(`${__dirname}/../../client/dist/`));
+app.use('/dist', express.static(`${__dirname}/../../client/dist/`));
 
 app.use('/auth', auth);
 
