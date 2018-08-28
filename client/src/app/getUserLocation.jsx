@@ -15,9 +15,8 @@ const Button = styled.button`
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      redirect: false,
-    };
+    this.state = { redirect: false };
+    this.setRedirect = this.setRedirect.bind(this);
   }
 
   componentDidMount() {
@@ -36,25 +35,16 @@ export default class extends Component {
   }
 
   setRedirect() {
-    this.setState({
-      redirect: true,
-    });
-  }
-
-  renderRedirect() {
-    const { redirect } = this.state;
-    if (redirect) {
-      return <Redirect to="/pets" />;
-    }
-    return null;
+    this.setState({ redirect: true });
   }
 
   render() {
+    const { redirect } = this.state;
     return (
       <div style={{ 'background-image': 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: '100vh' }}>
-        {this.renderRedirect()}
+        {redirect ? <Redirect to="/pets" /> : null}
         HELLO, Loading location data please wait...
-        <Button type="submit" onClick={this.setRedirect.bind}>
+        <Button type="submit" onClick={this.setRedirect}>
           Redirect
         </Button>
       </div>

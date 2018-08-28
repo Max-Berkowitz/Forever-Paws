@@ -26,10 +26,10 @@ const PDiv = styled.div`
 `;
 const PDivInner = styled.div`
   position: absolute;
+  width: 500px;
+  height: 800px;
   left: 5%;
-  right: 5%;
   top: 5%;
-  bottom: 5%;
   margin: auto;
   background: black;
 `;
@@ -59,8 +59,8 @@ export default class extends Component {
     const { togglePopup } = this.props;
     const { picture, age, description, breed, name } = this.state;
     return (
-      <PDiv>
-        <PDivInner>
+      <PDiv onClick={togglePopup}>
+        <PDivInner onClick={e => e.stopPropagation()}>
           <ImgDiv>
             <Img alt="dog" src={picture} />
           </ImgDiv>

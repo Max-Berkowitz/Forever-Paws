@@ -6,12 +6,7 @@ const getTopPetsOfTheDay = async () => {
     .orderBy('-likes')
     .fetchAll({ limit: 5 });
   const data = await Promise.all(topPets.toJSON().map(topPet => Pet.where({ id: topPet.petId }).fetch()));
-  return {
-    toJSON() {
-      return this.data.map(pet => pet.toJSON());
-    },
-    data,
-  };
+  return { toJSON: () => data.map(pet => pet.toJSON()) };
 };
 
 const addLikeForTodayToPetById = async petId => {

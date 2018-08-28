@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-// import Profile from './Profile';
 
 /* eslint react/prop-types:0 */
 const CardStyle2 = styled.div`
@@ -26,22 +25,10 @@ const Img2 = styled.img`
   border-radius: 15px;
 `;
 
-export default class extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const { profile } = this.props;
-
-    return (
-      <CardStyle2>
-        <ImgDiv2>
-          <Img2 alt="dog" src={profile.picture} />
-        </ImgDiv2>
-        {/* <Profile profile={profile} /> */}
-      </CardStyle2>
-    );
-  }
-}
+export default ({ profile: { picture } }) => (
+  <CardStyle2>
+    <ImgDiv2>
+      <Img2 alt="dog" src={picture} />
+    </ImgDiv2>
+  </CardStyle2>
+);

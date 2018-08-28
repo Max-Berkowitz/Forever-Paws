@@ -1,10 +1,10 @@
 import codeSplittingHelper from './codeSplittingHelper';
 
-const PetIndex = codeSplittingHelper(() => import('../users/routes/pet/index'));
 const LandingPage = codeSplittingHelper(() => import('../LandingPage'));
+const GetLocation = codeSplittingHelper(() => import('../getUserLocation'));
+const PetIndex = codeSplittingHelper(() => import('../users/routes/pet/index'));
 const TopDogs = codeSplittingHelper(() => import('../users/routes/topdogs/index'));
 const MyPets = codeSplittingHelper(() => import('../users/routes/mypets/index'));
-const GetLocation = codeSplittingHelper(() => import('../getUserLocation'));
 
 export default [
   {
