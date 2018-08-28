@@ -27,7 +27,7 @@ const getAnimals = () =>
   Pet.query(qb => {
     qb.select('*');
     qb.orderByRaw('random()');
-    qb.limit(3);
+    qb.limit(5);
   }).fetchAll();
 
 const getAnimalsByUserId = (body, { user }) => Pet.where({ userId: user }).fetchAll();
