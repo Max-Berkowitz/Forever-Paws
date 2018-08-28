@@ -8,12 +8,13 @@ db.knex.schema.hasTable('pets').then(
         pet.increments('id').primary();
         pet.string('name', 30);
         pet.boolean('adoptable').defaultTo(false);
-        pet.integer('likeCounter').defaultTo(0);
         pet.string('userId');
+        pet.integer('likeCounter').defaultTo(0);
         pet.string('breed');
         pet.string('description');
         pet.string('age');
         pet.string('picture');
+        pet.specificType('point', 'geometry(point, 4326)');
       })
       // eslint-disable-next-line
       .then(table => `Pets Table Created: ${console.log(table)}`)

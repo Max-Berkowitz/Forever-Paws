@@ -1,7 +1,18 @@
 import Pet from './index';
 import { addLikeForTodayToPetById } from '../petlikes/petLike';
+import db from '../index';
 
-const saveAnimal = (pet, { user, point }) => Pet.forge({ ...pet, userId: user, point }).save();
+const saveAnimal = (pet, { user }) => {
+  const { longitude, latitude } = pet;
+  const petREFACTORTHIS = pet;
+  delete petREFACTORTHIS.longitude;
+  delete petREFACTORTHIS.latitude;
+  Pet.forge({
+    ...petREFACTORTHIS,
+    userId: user,
+    point: db.knex.raw(`ST_SetSRID(ST_Point(${longitude},${latitude}) , 4326)`),
+  }).save();
+};
 
 const updateAnimal = async (petAttributes, { id }, { user }) => {
   const pet = await Pet.where({ id }).fetch();
@@ -27,4 +38,18 @@ const addLikeToPet = async ({ id }) => {
   await addLikeForTodayToPetById(id);
 };
 
-export { saveAnimal, updateAnimal, getAnimal, getAnimals, getAnimalsByUserId, addLikeToPet };
+const getClosestPets = async ({ location: { userLatitude, userLongitude } }) => {
+  const randomPets = await db.knex.raw(
+    `select *,st_distance(ST_transform(ST_GeomFromText('POINT(${userLongitude} ${userLatitude})', 4326),2163), ST_Transform(pets.point,2163)) as distance from pets
+    where pets.point IS NULL OR ST_Dwithin(ST_transform(ST_GeomFromText('POINT(${userLongitude} ${userLatitude})', 4326),2163), ST_Transform(pets.point,2163), 100000) 
+    ORDER BY random() LIMIT 5`
+  );
+  return {
+    toJSON() {
+      return this.randomPets.rows;
+    },
+    randomPets,
+  };
+};
+
+export { saveAnimal, updateAnimal, getAnimal, getAnimals, getAnimalsByUserId, addLikeToPet, getClosestPets };

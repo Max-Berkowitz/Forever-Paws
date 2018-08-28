@@ -1,10 +1,9 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { post } from 'axios';
 import bg from './images/bg.jpg';
 import tree from './images/pawtree.png';
-import { post } from 'axios';
 import goog from './images/goog.png';
 import fb from './images/fb.png';
 
@@ -15,6 +14,8 @@ const sampleData = [
     age: '3 years old',
     description: 'Lets skip the small talk and go for a walk',
     picture: 'https://i.ytimg.com/vi/SfLV8hD7zX4/maxresdefault.jpg',
+    latitude: 38.897212,
+    longitude: -77.038078,
   },
   {
     name: 'Bones',
@@ -22,6 +23,8 @@ const sampleData = [
     age: '2 years old',
     description: 'Lets play fetch',
     picture: 'https://pbs.twimg.com/profile_images/948761950363664385/Fpr2Oz35_400x400.jpg',
+    latitude: 37.783714,
+    longitude: -122.409071,
   },
   {
     name: 'Rover',
@@ -29,6 +32,8 @@ const sampleData = [
     age: '1 years old',
     description: 'Cute and fluffy',
     picture: 'https://weloveanimals.me/wp-content/uploads/2017/10/gettyimages-590486672-e1508512743796.jpg',
+    latitude: 39.10087,
+    longitude: -76.914566,
   },
   {
     name: 'Spot',
@@ -36,6 +41,8 @@ const sampleData = [
     age: '5 years old',
     description: 'Friendly and playful',
     picture: 'https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg',
+    latitude: 40.799333,
+    longitude: -73.955287,
   },
   {
     name: 'Last Dog',
@@ -44,14 +51,29 @@ const sampleData = [
     description: 'Last Dog',
     picture:
       'https://cdn.vox-cdn.com/thumbor/wng90rt7pFT3o_oPRNV21iK-2x8=/0x0:4560x3041/1200x800/filters:focal(1916x1157:2644x1885)/cdn.vox-cdn.com/uploads/chorus_image/image/58504395/911428568.jpg.0.jpg',
+    latitude: 37.430179,
+    longitude: -122.165915,
   },
 ];
 
 const makeData = (e, i = 0) => {
-  if (!sampleData[i]) return;
-  post('/api/animal', sampleData[i])
-    .then(() => makeData(e, i + 1))
-    .catch(err => console.log(err));
+  let userLatitude = 37.430179;
+  let uerLongitude = -122.165915;
+
+  navigator.geolocation.getCurrentPosition(data => {
+    userLatitude = data.coords.latitude;
+    uerLongitude = data.coords.longitude;
+    console.log(userLatitude);
+    console.log(uerLongitude);
+
+    sampleData[i].latitude = userLatitude + (Math.random() * 2 + -1);
+    sampleData[i].longitude = uerLongitude + (Math.random() * 2 + -1);
+
+    if (!sampleData[i]) return;
+    post('/api/animal', sampleData[i])
+      .then(() => makeData(e, i + 1))
+      .catch(err => console.log(err));
+  });
 };
 
 const Button = styled.button`

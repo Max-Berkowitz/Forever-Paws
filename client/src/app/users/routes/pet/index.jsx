@@ -25,10 +25,19 @@ export default class extends Component {
   async fetchPets() {
     const { profileQueue } = this.state;
     try {
-      const { data } = await get('/api/animals');
-      this.setState({
-        profileQueue: profileQueue.concat(data.animals),
-      });
+      if (localStorage.getItem('myLocationData')) {
+        const { data } = await get('/api/animals/closest', {
+          params: { location: JSON.parse(localStorage.getItem('myLocationData')) },
+        });
+        this.setState({
+          profileQueue: profileQueue.concat(data.animals),
+        });
+      } else {
+        const { data } = await get('/api/animals');
+        this.setState({
+          profileQueue: profileQueue.concat(data.animals),
+        });
+      }
       this.nextPet();
     } catch (e) {
       // eslint-disable-next-line

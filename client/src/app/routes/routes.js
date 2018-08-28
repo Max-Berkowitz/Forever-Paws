@@ -4,6 +4,7 @@ const PetIndex = codeSplittingHelper(() => import('../users/routes/pet/index'));
 const LandingPage = codeSplittingHelper(() => import('../LandingPage'));
 const TopDogs = codeSplittingHelper(() => import('../users/routes/topdogs/index'));
 const MyPets = codeSplittingHelper(() => import('../users/routes/mypets/index'));
+const GetLocation = codeSplittingHelper(() => import('../getUserLocation'));
 
 export default [
   {
@@ -24,6 +25,11 @@ export default [
   {
     path: '/mypets',
     component: MyPets,
+    exact: true,
+  },
+  {
+    path: '/location',
+    component: GetLocation,
     exact: true,
   },
 ];
