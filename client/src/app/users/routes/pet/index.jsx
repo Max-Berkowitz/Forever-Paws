@@ -25,29 +25,16 @@ export default class extends Component {
   async fetchPets() {
     const { profileQueue } = this.state;
     try {
-      if (localStorage.getItem('myLocationData')) {
-        const {
-          data: { animals },
-        } = await get('/api/animals/closest', {
-          params: { location: JSON.parse(localStorage.getItem('myLocationData')) },
-        });
-        if (!animals.length) {
-          return;
-        }
-        this.setState({
-          profileQueue: profileQueue.concat(animals),
-        });
-      } else {
-        const {
-          data: { animals },
-        } = await get('/api/animals');
-        if (!animals.length) {
-          return;
-        }
-        this.setState({
-          profileQueue: profileQueue.concat(animals),
-        });
-      }
+      const {
+        data: { animals },
+      } = await get('/api/animals', {
+        params: { location: JSON.parse(localStorage.getItem('myLocationData')) },
+      });
+      if (!animals.length) return;
+      this.setState({
+        profileQueue: profileQueue.concat(animals),
+      });
+
       this.nextPet();
     } catch (e) {
       // eslint-disable-next-line
@@ -75,7 +62,7 @@ export default class extends Component {
         <NavComponent />
         <CardStack profile={currentProfileView} nextPet={this.nextPet} />
         <CardStackBottom profile={nextProfileView} />
-        <BottomLaunchPad nextPet={this.nextPet} />
+        <BottomLaunchPad nextPet={this.nextPet} id={currentProfileView.id} />
       </div>
     );
   }

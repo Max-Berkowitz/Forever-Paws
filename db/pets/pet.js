@@ -23,13 +23,6 @@ const updateAnimal = async (petAttributes, { id }, { user }) => {
 
 const getAnimal = ({ id }) => Pet.where({ id }).fetch();
 
-const getAnimals = () =>
-  Pet.query(qb => {
-    qb.select('*');
-    qb.orderByRaw('random()');
-    qb.limit(5);
-  }).fetchAll();
-
 const getAnimalsByUserId = (body, { user }) => Pet.where({ userId: user }).fetchAll();
 
 const addLikeToPet = async ({ id }) => {
@@ -38,18 +31,21 @@ const addLikeToPet = async ({ id }) => {
   await addLikeForTodayToPetById(id);
 };
 
-const getClosestPets = async ({ location: { userLatitude, userLongitude } }) => {
-  const randomPets = await db.knex.raw(
-    `select *,st_distance(ST_transform(ST_GeomFromText('POINT(${userLongitude} ${userLatitude})', 4326),2163), ST_Transform(pets.point,2163)) as distance from pets
-    where pets.point IS NULL OR ST_Dwithin(ST_transform(ST_GeomFromText('POINT(${userLongitude} ${userLatitude})', 4326),2163), ST_Transform(pets.point,2163), 100000) 
-    ORDER BY random() LIMIT 5`
-  );
-  return {
-    toJSON() {
-      return this.randomPets.rows;
-    },
-    randomPets,
-  };
+const getAnimals = async ({ location }) => {
+  if (location) {
+    const { userLatitude, userLongitude } = location;
+    const randomPets = await db.knex.raw(
+      `select *,st_distance(ST_transform(ST_GeomFromText('POINT(${userLongitude} ${userLatitude})', 4326),2163), ST_Transform(pets.point,2163)) as distance from pets
+      where pets.point IS NULL OR ST_Dwithin(ST_transform(ST_GeomFromText('POINT(${userLongitude} ${userLatitude})', 4326),2163), ST_Transform(pets.point,2163), 100000) 
+      ORDER BY random() LIMIT 5`
+    );
+    return { toJSON: () => randomPets.rows };
+  }
+  return Pet.query(qb => {
+    qb.select('*');
+    qb.orderByRaw('random()');
+    qb.limit(5);
+  }).fetchAll();
 };
 
-export { saveAnimal, updateAnimal, getAnimal, getAnimals, getAnimalsByUserId, addLikeToPet, getClosestPets };
+export { saveAnimal, updateAnimal, getAnimal, getAnimalsByUserId, addLikeToPet, getAnimals };
