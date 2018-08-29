@@ -5,7 +5,10 @@ import styled from 'styled-components';
 import cloud from './utils/config';
 import Dropzone from './dropzonetest';
 import dislike from '../../../images/dislike.png';
+import UserNav from '../../../users/navbar/index';
+import ShelterNav from '../../../shelters/navbar/index';
 
+/* eslint react/prop-types:0 */
 const ImgDiv = styled.div`
   position: relative;
   height: ${window.outerHeight * 0.5}px;
@@ -235,10 +238,16 @@ export default class extends Component {
 
   render() {
     const { name, breed, description, age, photos } = this.state;
+    const {
+      match: {
+        params: { type },
+      },
+    } = this.props;
 
     return (
       <div style={{ 'background-image': 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: '100vh' }}>
-        user upload dawg
+        {type === 'user' ? <UserNav /> : <ShelterNav />}
+        Upload Pet
         <div>
           Whats your pets name?
           <input type="text" id="name" value={name} onChange={this.onChange} />

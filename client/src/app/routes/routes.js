@@ -71,7 +71,7 @@ export default [
     exact: true,
   },
   {
-    path: '/petupload',
+    path: '/petupload/:type',
     component: PetUpload,
     exact: true,
   },

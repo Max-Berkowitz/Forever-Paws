@@ -60,7 +60,7 @@ export default class extends Component {
               <p>My Pets</p>{' '}
             </Field>
           </Link>
-          <Link to="/petupload">
+          <Link to="/petupload/user">
             <Field style={{ top: '27%' }}>
               <p>Upload Pet</p>{' '}
             </Field>
