@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Profile from './Profile';
 
+/* eslint react/prop-types:0 */
+
 const ImgDiv = styled.div`
   position: relative;
   height: ${window.outerHeight * 0.5}px;
@@ -45,23 +47,30 @@ const Button = styled.button`
   color: white;
   border: 2px solid white;
 `;
+
 export default function({ previousProfileView, togglePopup }) {
-  // console.log('from popup', previousProfileView);
   return (
-    <PDiv>
-      <PDivInner>
+    <PDiv onClick={() => togglePopup(false)}>
+      <PDivInner onClick={e => e.stopPropagation()}>
         <h1>Its a Match!</h1>
         <br />
         <h2>This pet is availble for adoption:</h2>
         {previousProfileView ? (
           <div>
             <Profile profile={previousProfileView} />
+            <br />
+            {Math.floor(previousProfileView.distance * 0.000621371)} miles away
+            <br />
+            <a href={`https://${previousProfileView.website}`} rel="noopener noreferrer" target="_blank">
+              Shelter
+              {`'`}s website
+            </a>
             <ImgDiv>
               <Img alt="dog" src={previousProfileView.picture} />
             </ImgDiv>
           </div>
         ) : null}
-        <Button type="button" onClick={togglePopup.bind(null, false)}>
+        <Button type="button" onClick={() => togglePopup(false)}>
           Cancel
         </Button>
       </PDivInner>

@@ -48,12 +48,8 @@ export default class extends Component {
         </P1>
         <Span style={{ float: 'left', 'font-style': 'italic' }}>{breed}</Span>{' '}
         {/* <Span style={{ float: 'right' }}>zip: {location} </Span> */}
-        <P>
-          {/* <br />
-          {Math.floor(distance * 0.000621371)} miles away */}
-          <br />
-          {`"${description}"`}
-        </P>
+        <br />
+        <P>{`"${description}"`}</P>
       </ProfileStyle>
     );
   }
