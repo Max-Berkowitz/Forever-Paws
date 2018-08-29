@@ -3,27 +3,27 @@
   "short_name": "ForeverPaws",
   "icons": [
     {
-      "src": "./Images/icons/paw-48.png",
+      "src": "./images/icons/paw-48.png",
       "sizes": "48x48",
       "type": "image/png"
     },
     {
-      "src": "./Images/icons/paw-64.png",
+      "src": "./images/icons/paw-64.png",
       "sizes": "64x64",
       "type": "image/png"
     },
     {
-      "src": "./Images/icons/paw-128.png",
+      "src": "./images/icons/paw-128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "./Images/icons/paw-256.png",
+      "src": "./images/icons/paw-256.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "./Images/icons/paw-512.png",
+      "src": "./images/icons/paw-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
