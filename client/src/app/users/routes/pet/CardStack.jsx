@@ -79,6 +79,7 @@ export default class extends Component {
     const {
       profile: { id },
       nextPet,
+      togglePopup,
     } = this.props;
     const { xDelta } = this.state;
 
@@ -92,6 +93,7 @@ export default class extends Component {
         patch('/api/animal/addlike', { id });
       }
       this.setState({ renderCard: false });
+      togglePopup(true);
       nextPet();
       // set this card back to 0,0 in componentWillReceiveProps
     }

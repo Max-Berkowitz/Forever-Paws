@@ -4,6 +4,7 @@ import NavComponent from '../../navbar/index';
 import CardStack from './CardStack';
 import BottomLaunchPad from './BottomLaunchPad';
 import CardStackBottom from './CardStackBottom';
+import MatchPopup from './MatchPopup';
 
 export default class extends Component {
   constructor(props) {
@@ -12,10 +13,13 @@ export default class extends Component {
       profileQueue: [],
       currentProfileView: {},
       nextProfileView: {},
+      previousProfileView: {},
+      matchPopup: false,
     };
 
     this.nextPet = this.nextPet.bind(this);
     this.fetchPets = this.fetchPets.bind(this);
+    this.togglePopup = this.togglePopup.bind(this);
   }
 
   componentDidMount() {
@@ -43,26 +47,43 @@ export default class extends Component {
   }
 
   nextPet() {
-    const { profileQueue, nextProfileView } = this.state;
+    const { profileQueue, nextProfileView, currentProfileView, previousProfileView } = this.state;
     if (profileQueue.length < 5) {
       this.fetchPets();
     } else {
       this.setState({
+        previousProfileView: currentProfileView.picture ? currentProfileView : null,
         currentProfileView: nextProfileView.picture ? nextProfileView : profileQueue.pop(),
         nextProfileView: profileQueue.pop(),
         profileQueue,
       });
     }
+    // console.log('CURR', currentProfileView);
+    // console.log('PREV', previousProfileView);
+    // console.log('Next', nextProfileView);
+  }
+
+  togglePopup(close = false) {
+    const { matchPopup, previousProfileView, currentProfileView } = this.state;
+    if (close) {
+      if (currentProfileView.distance !== null) {
+        this.setState({ matchPopup: true });
+      }
+    } else {
+      this.setState({ matchPopup: false });
+    }
   }
 
   render() {
-    const { currentProfileView, nextProfileView } = this.state;
+    const { currentProfileView, nextProfileView, previousProfileView, matchPopup } = this.state;
+
     return (
       <div style={{ 'background-image': 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: '100vh' }}>
         <NavComponent />
-        <CardStack profile={currentProfileView} nextPet={this.nextPet} />
+        <CardStack profile={currentProfileView} nextPet={this.nextPet} togglePopup={this.togglePopup} />
         <CardStackBottom profile={nextProfileView} />
         <BottomLaunchPad nextPet={this.nextPet} id={currentProfileView.id} />
+        {matchPopup ? <MatchPopup togglePopup={this.togglePopup} previousProfileView={previousProfileView} /> : null}
       </div>
     );
   }
