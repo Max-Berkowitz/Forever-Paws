@@ -14,14 +14,15 @@ shelter.post('/signup', async (req, res) => {
     res.status(400).send({ serverMessage: 'improper address' });
   } else {
     try {
-      const { username, website } = req.body;
+      const { website } = req.body;
       const {
         geometry: {
           location: { lng, lat },
         },
         formatted_address: address,
       } = results[0];
-      await saveShelter({ username, password, address, website }, lng, lat);
+      await saveShelter({ password, address, website }, lng, lat);
+      res.redirect('/portal');
     } catch (e) {
       res.status(400).send({ error: e, serverMessage: 'error creating user' });
     }
@@ -29,7 +30,8 @@ shelter.post('/signup', async (req, res) => {
 });
 
 shelter.post('/login', async (req, res) => {
-  const { shelter: isShelter, password, id, point, address, website } = await getInfo(req.body.username);
+  const user = await getInfo(req.body.website);
+  const { shelter: isShelter, password, id, point, address, website } = user.toJSON();
   if (!isShelter) return;
   const match = await checkPass(req.body.password, password);
   if (!match) {
@@ -37,8 +39,13 @@ shelter.post('/login', async (req, res) => {
     return;
   }
   req.session.regenerate(() => {
-    req.session = { ...req.session, user: id, point, address, website };
-    res.status(200).send(req.session);
+    req.session.user = id;
+    req.session.address = address;
+    req.session.website = website;
+    req.session.point = point;
+    req.session.save(() => {
+      res.redirect('/account');
+    });
   });
 });
 

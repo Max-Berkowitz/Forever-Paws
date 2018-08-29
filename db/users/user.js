@@ -4,7 +4,7 @@ import db from '../index';
 const saveShelter = (shelter, lng, lat) =>
   User.forge({ ...shelter, shelter: true, point: db.knex.raw(`ST_SetSRID(ST_Point(${lng},${lat}) , 4326)`) }).save();
 
-const getInfo = username => User.where({ username }).fetchAll();
+const getInfo = website => User.where({ website }).fetch();
 
 // FOR PASSPORT
 // =========================

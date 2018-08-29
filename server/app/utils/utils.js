@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt-nodejs';
 
 const checkUser = (req, res, next) =>
-  req.session.passport || req.session.user || req.url === '/' ? next() : res.redirect('/');
+  req.session.passport || req.session.user || req.url === '/' || req.url === '/portal' || req.url === '/signup'
+    ? next()
+    : res.redirect('/');
 
 const hashPass = pass =>
   new Promise((resolve, reject) => bcrypt.hash(pass, null, null, (err, hash) => (err ? reject(err) : resolve(hash))));

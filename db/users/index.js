@@ -14,7 +14,7 @@ db.knex.schema.hasTable('users').then(
         user.string('facebookId').unique();
         user.string('lastName');
         user.string('email');
-        user.string('website');
+        user.string('website').unique();
         user.string('address');
         user.specificType('point', 'geometry(point, 4326)');
       })

@@ -3,7 +3,14 @@ import { addLikeForTodayToPetById } from '../petlikes/petLike';
 import db from '../index';
 
 const saveAnimal = (pet, { user, point, address, website }) =>
-  Pet.forge({ ...pet, userId: user, point: point || null, address: address || null, website: website || null }).save();
+  Pet.forge({
+    ...pet,
+    userId: user,
+    point: point || null,
+    address: address || null,
+    website: website || null,
+    adoptable: !!point,
+  }).save();
 
 const updateAnimal = async (petAttributes, { id }, { user }) => {
   const pet = await Pet.where({ id }).fetch();

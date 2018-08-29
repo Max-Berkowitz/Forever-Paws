@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import { post } from 'axios';
 
 export default class extends Component {
   constructor(props) {
     super(props);
-    this.state = { website: '', password: '' };
+    this.state = { password: '', address: '', website: '' };
 
     this.handleLogin = this.handleLogin.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -20,7 +19,7 @@ export default class extends Component {
 
   async handleLogin() {
     try {
-      await post('/auth/shelter/login', this.state);
+      await post('/auth/shelter/signup', this.state);
     } catch (e) {
       // eslint-disable-next-line
       console.log(e);
@@ -28,7 +27,7 @@ export default class extends Component {
   }
 
   render() {
-    const { website, password } = this.state;
+    const { password, address, website } = this.state;
     return (
       <Fragment>
         <header>
@@ -58,21 +57,19 @@ export default class extends Component {
                     <h5 className="card-title mb-5">Login</h5>
                     <form className="form-horizontal">
                       <div className="row form-group-lg form-group">
-                        <label className="col-sm-4 col-md-3 control-label" id="email">
-                          Website
-                        </label>
-                        <div className="col">
-                          <input
-                            type="text"
-                            name="website"
-                            value={website}
-                            placeholder="Website"
-                            className="input-lg form-control"
-                            onChange={this.onChange}
-                          />
+                        <div className="row form-group-lg form-group">
+                          <label className="col-sm-4 col-md-3 control-label">Website</label>
+                          <div className="col">
+                            <input
+                              type="text"
+                              name="website"
+                              value={website}
+                              placeholder="Website"
+                              className="input-lg form-control"
+                              onChange={this.onChange}
+                            />
+                          </div>
                         </div>
-                      </div>
-                      <div className="row form-group-lg form-group">
                         <label className="col-sm-4 col-md-3 control-label">Password</label>
                         <div className="col">
                           <input
@@ -80,6 +77,20 @@ export default class extends Component {
                             name="password"
                             value={password}
                             placeholder="Password"
+                            className="input-lg form-control"
+                            onChange={this.onChange}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="row form-group-lg form-group">
+                        <label className="col-sm-4 col-md-3 control-label">Address</label>
+                        <div className="col">
+                          <input
+                            type="text"
+                            name="address"
+                            value={address}
+                            placeholder="Address"
                             className="input-lg form-control"
                             onChange={this.onChange}
                           />
@@ -101,9 +112,6 @@ export default class extends Component {
                 <div className="card-body p-0">
                   <h6>Want to be on out platform?</h6>
                   <h6>Contact us!</h6>
-                  <Link to="/signup">
-                    <button type="button">Signup</button>
-                  </Link>
                 </div>
               </div>
             </div>
