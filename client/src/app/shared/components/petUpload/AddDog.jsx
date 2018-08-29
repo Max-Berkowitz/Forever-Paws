@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Dropzone from 'react-dropzone';
 import axios, { post } from 'axios';
 import styled from 'styled-components';
-import { cloud } from '../../../../../../config/config';
+import cloud from './utils/config';
 import Dropzone from './dropzonetest';
 import dislike from '../../../images/dislike.png';
 

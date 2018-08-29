@@ -84,7 +84,7 @@ export default class extends Component {
         <NavComponent />
         <CardStack profile={currentProfileView} nextPet={this.nextPet} togglePopup={this.togglePopup} />
         <CardStackBottom profile={nextProfileView} />
-        <BottomLaunchPad nextPet={this.nextPet} id={currentProfileView.id} />
+        <BottomLaunchPad nextPet={this.nextPet} id={currentProfileView.id} togglePopup={this.togglePopup} />
         {matchPopup ? <MatchPopup togglePopup={this.togglePopup} previousProfileView={previousProfileView} /> : null}
       </div>
     );

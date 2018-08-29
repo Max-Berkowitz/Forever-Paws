@@ -20,7 +20,7 @@ const Button = styled.button`
 `;
 
 /* eslint react/prop-types:0 */
-export default ({ nextPet, id }) => (
+export default ({ nextPet, id, togglePopup }) => (
   <LaunchpadStyle>
     <Button type="submit" onClick={nextPet}>
       <img src={dislike} style={{ float: 'left', color: 'white', height: '60px', width: '60px' }} alt="profile" />
@@ -30,6 +30,7 @@ export default ({ nextPet, id }) => (
       type="submit"
       onClick={() => {
         patch('/api/animal/addlike', { id });
+        togglePopup(true);
         nextPet();
       }}
     >
