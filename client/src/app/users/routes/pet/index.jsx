@@ -28,11 +28,11 @@ export default class extends Component {
       const {
         data: { animals },
       } = await get('/api/animals', {
-        params: { location: JSON.parse(localStorage.getItem('myLocationData')) },
+        params: { location: localStorage.getItem('myLocationData') },
       });
       if (!animals.length) return;
       this.setState({
-        profileQueue: profileQueue.concat(animals),
+        profileQueue: animals.concat(profileQueue),
       });
 
       this.nextPet();
@@ -48,9 +48,9 @@ export default class extends Component {
       this.fetchPets();
     } else {
       this.setState({
-        currentProfileView: nextProfileView.picture ? nextProfileView : profileQueue.splice(0, 1)[0],
-        nextProfileView: profileQueue[0],
-        profileQueue: profileQueue.slice(1),
+        currentProfileView: nextProfileView.picture ? nextProfileView : profileQueue.pop(),
+        nextProfileView: profileQueue.pop(),
+        profileQueue,
       });
     }
   }

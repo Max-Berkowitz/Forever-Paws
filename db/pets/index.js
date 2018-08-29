@@ -14,6 +14,8 @@ db.knex.schema.hasTable('pets').then(
         pet.string('description');
         pet.string('age');
         pet.string('picture');
+        pet.string('address');
+        pet.string('website');
         pet.specificType('point', 'geometry(point, 4326)');
       })
       // eslint-disable-next-line

@@ -40,7 +40,7 @@ export default class extends Component {
 
   render() {
     const { profile } = this.props;
-    const { name, age, breed, description, distance } = profile;
+    const { name, age, breed, description } = profile;
     return (
       <ProfileStyle>
         <P1>
@@ -49,8 +49,8 @@ export default class extends Component {
         <Span style={{ float: 'left', 'font-style': 'italic' }}>{breed}</Span>{' '}
         {/* <Span style={{ float: 'right' }}>zip: {location} </Span> */}
         <P>
-          <br />
-          {Math.floor(distance * 0.000621371)} miles away
+          {/* <br />
+          {Math.floor(distance * 0.000621371)} miles away */}
           <br />
           {`"${description}"`}
         </P>
