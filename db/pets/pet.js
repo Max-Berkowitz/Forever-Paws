@@ -10,7 +10,7 @@ const saveAnimal = (pet, { user }) => {
   Pet.forge({
     ...petREFACTORTHIS,
     userId: user,
-    point: db.knex.raw(`ST_SetSRID(ST_Point(${longitude},${latitude}) , 4326)`),
+    point: longitude ? db.knex.raw(`ST_SetSRID(ST_Point(${longitude},${latitude}) , 4326)`) : null,
   }).save();
 };
 

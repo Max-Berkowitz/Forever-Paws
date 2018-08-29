@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/FacinateTech/Forever-Paws#readme",
   "dependencies": {
+    "attr-accept": "^1.1.3",
     "axios": "^0.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "body-parser": "^1.18.3",
@@ -39,6 +40,7 @@
     "pg": "^7.4.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-dropzone": "^5.0.1",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-spring": "^5.6.6",

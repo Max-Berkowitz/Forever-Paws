@@ -5,6 +5,7 @@ const GetLocation = codeSplittingHelper(() => import('../getUserLocation'));
 const PetIndex = codeSplittingHelper(() => import('../users/routes/pet/index'));
 const TopDogs = codeSplittingHelper(() => import('../users/routes/topdogs/index'));
 const MyPets = codeSplittingHelper(() => import('../users/routes/mypets/index'));
+const PetUpload = codeSplittingHelper(() => import('../shared/components/petUpload/AddDog'));
 
 export default [
   {
@@ -30,6 +31,11 @@ export default [
   {
     path: '/location',
     component: GetLocation,
+    exact: true,
+  },
+  {
+    path: '/petupload',
+    component: PetUpload,
     exact: true,
   },
 ];
