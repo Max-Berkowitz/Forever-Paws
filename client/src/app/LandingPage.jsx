@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { post } from 'axios';
-import bg from './images/bg.jpg';
-import tree from './images/pawtree.png';
-import goog from './images/goog.png';
-import fb from './images/fb.png';
+import bg from './Images/bg.jpg';
+import tree from './Images/pawtree.png';
+import goog from './Images/goog.png';
+import fb from './Images/fb.png';
 
 const sampleData = [
   {

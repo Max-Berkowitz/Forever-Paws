@@ -26,11 +26,98 @@ const SubmitButton = styled.button`
   color: white;
   border: 2px solid white;
 `;
-
+const Video = styled.video`
+  width: 512px;
+  max-width: 100%;
+  display: none;
+  margin: auto;
+`;
 const Button = styled.button`
   background: transparent;
   border: 0;
 `;
+let picture;
+console.log(picture);
+function initializeMedia() {
+  const videoPlayer = document.getElementById('player');
+  console.log('video player', videoPlayer);
+  if (!('mediaDevices' in navigator)) {
+    navigator.mediaDevices = {};
+  }
+  if (!('getUserMedia' in navigator.mediaDevices)) {
+    navigator.mediaDevices.getUserMedia = constraints => {
+      const getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      if (!getUserMedia) {
+        return Promise.reject(new Error('getUserMedia is not implemented!'));
+      }
+      return new Promise((resolve, reject) => {
+        getUserMedia.call(navigator, constraints, resolve, reject);
+      });
+    };
+  }
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then(stream => {
+      videoPlayer.srcObject = stream;
+      videoPlayer.style.display = 'block';
+    })
+    .catch(err => {
+      // eslint-disable-next-line
+      console.log(err);
+    });
+}
+function dataURItoBlob(dataURI) {
+  // convert base64 to raw binary data held in a string
+  const byteString = atob(dataURI.split(',')[1]);
+
+  // separate out the mime component
+  const mimeString = dataURI
+    .split(',')[0]
+    .split(':')[1]
+    .split(';')[0];
+
+  // write the bytes of the string to an ArrayBuffer
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+
+  const dataView = new DataView(arrayBuffer);
+  const blob = new Blob([dataView], { type: mimeString });
+  return blob;
+}
+function saveImg() {
+  const videoPlayer = document.getElementById('player');
+  const canvasElement = document.getElementById('canvas');
+  const captureButton = document.getElementById('pictureButton');
+  canvasElement.style.display = 'block';
+  videoPlayer.style.display = 'none';
+  captureButton.style.display = 'none';
+  const context = canvasElement.getContext('2d');
+  context.drawImage(videoPlayer, 0, 0, canvas.width, videoPlayer.videoHeight / (videoPlayer.videoWidth / canvas.width));
+  videoPlayer.srcObject.getVideoTracks().forEach(track => {
+    track.stop();
+  });
+  picture = dataURItoBlob(canvasElement.toDataURL());
+  const formData = new FormData();
+  formData.append('file', picture);
+  formData.append('tags', `codeinfuse, medium, gist`);
+  // Replace the preset name with your own ***********
+  formData.append('upload_preset', cloud.cloudinaryPresetName);
+  // Replace API key with your own Cloudinary key  ***********
+  // images are hosted on Cloudinary, you can set up your own free account
+  formData.append('api_key', cloud.cloudinaryKey);
+  formData.append('timestamp', Math.floor(Date.now() / 1000));
+  // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own) ***********
+  axios
+    .post(cloud.CloudinaryURL, formData, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+    })
+    .then(({ data: { secure_url: url } }) => {
+      console.log(url);
+    });
+}
 export default class extends Component {
   constructor(props) {
     super(props);
@@ -67,16 +154,15 @@ export default class extends Component {
       // Replace API key with your own Cloudinary key  ***********
       // images are hosted on Cloudinary, you can set up your own free account
       formData.append('api_key', cloud.cloudinaryKey);
-      formData.append('timestamp', (Date.now() / 1000) | 0);
+      formData.append('timestamp', Math.floor(Date.now() / 1000));
       // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own) ***********
       return axios
         .post(cloud.CloudinaryURL, formData, {
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
         })
-        .then(({ data }) => {
+        .then(({ data: { secure_url: url } }) => {
           const { photos } = this.state;
-          const { secure_url } = data;
-          photos.push(secure_url);
+          photos.push(url);
         });
     });
 
@@ -84,12 +170,12 @@ export default class extends Component {
     axios.all(uploaders).then(() => {
       const { photos } = this.state;
 
-      const temp = [];
+      const photosData = [];
       photos.forEach(ele => {
-        temp.push({ url: ele });
+        photosData.push({ url: ele });
       });
       this.setState({
-        photosData: temp,
+        photosData,
       });
     });
   }
@@ -105,8 +191,8 @@ export default class extends Component {
       picture: photosData[0].url,
     };
     post('/api/animal', submission)
-      .then(() => console.log('submitted!'))
-      .catch(err => console.log(err));
+      .then(() => console.log('submitted!')) // eslint-disable-line
+      .catch(err => console.log(err)); // eslint-disable-line
   }
 
   picOrUpload() {
@@ -171,6 +257,14 @@ export default class extends Component {
         </div>
         <div>{photos.length} File(s) Uploaded</div>
         <SubmitButton onClick={this.onsubmit}>submit</SubmitButton>
+        <SubmitButton className="player" onClick={initializeMedia}>
+          Open Camera
+        </SubmitButton>
+        <SubmitButton id="pictureButton" onClick={saveImg}>
+          Capture
+        </SubmitButton>
+        <Video id="player" autoPlay muted />
+        <canvas id="canvas" width="320px" height="240px" />
         <div>{this.picOrUpload()}</div>
       </div>
     );

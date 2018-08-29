@@ -271,6 +271,7 @@ class Dropzone extends React.Component {
   setRefs(ref) {
     this.fileInputEl = ref;
   }
+
   /**
    * Open system file upload dialog.
    *

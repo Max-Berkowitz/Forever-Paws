@@ -24,6 +24,10 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         use: [{ loader: 'file-loader', options: {} }],
       },
+      {
+        test: /manifest.json$/,
+        use: [{ loader: 'file-loader?name=manifest.json' }],
+      },
     ],
   },
 };
