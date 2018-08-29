@@ -64,9 +64,11 @@ export default class extends Component {
   }
 
   togglePopup(close = false) {
-    const { matchPopup, previousProfileView, currentProfileView } = this.state;
+    const {
+      currentProfileView: { adoptable },
+    } = this.state;
     if (close) {
-      if (currentProfileView.distance !== null) {
+      if (adoptable) {
         this.setState({ matchPopup: true });
       }
     } else {
