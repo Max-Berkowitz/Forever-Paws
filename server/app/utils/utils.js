@@ -1,4 +1,15 @@
-const checkUser = (req, res, next) => (req.session.passport || req.url === '/' ? next() : res.redirect('/'));
+import bcrypt from 'bcrypt-nodejs';
+
+const checkUser = (req, res, next) =>
+  req.session.passport || req.session.user || req.url === '/' ? next() : res.redirect('/');
+
+const hashPass = pass =>
+  new Promise((resolve, reject) => bcrypt.hash(pass, null, null, (err, hash) => (err ? reject(err) : resolve(hash))));
+
+const checkPass = (pass, hash) =>
+  new Promise((resolve, reject) =>
+    bcrypt.compare(pass, hash, (err, matches) => (err ? reject(err) : resolve(matches)))
+  );
 
 const respondError = (res, err, status, message) => res.status(status).send({ error: err, serverMessage: message });
 
@@ -56,4 +67,4 @@ const deleteRes = (dbFunction, errMessage = 'Item Not Found', status = 204, errS
   }
 };
 
-export { checkUser, getRes, postRes, patchRes, deleteRes };
+export { checkUser, checkShelter, hashPass, checkPass, getRes, postRes, patchRes, deleteRes };

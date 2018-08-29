@@ -2,23 +2,12 @@ import Pet from './index';
 import { addLikeForTodayToPetById } from '../petlikes/petLike';
 import db from '../index';
 
-const saveAnimal = (pet, { user }) => {
-  const { longitude, latitude } = pet;
-  const petREFACTORTHIS = pet;
-  delete petREFACTORTHIS.longitude;
-  delete petREFACTORTHIS.latitude;
-  Pet.forge({
-    ...petREFACTORTHIS,
-    userId: user,
-    point: longitude ? db.knex.raw(`ST_SetSRID(ST_Point(${longitude},${latitude}) , 4326)`) : null,
-  }).save();
-};
+const saveAnimal = (pet, { user, point, address, website }) =>
+  Pet.forge({ ...pet, userId: user, point: point || null, address: address || null, website: website || null }).save();
 
 const updateAnimal = async (petAttributes, { id }, { user }) => {
   const pet = await Pet.where({ id }).fetch();
-  if (pet.attributes.userId === user) {
-    await pet.set(petAttributes).save();
-  }
+  if (pet.attributes.userId === user) await pet.set(petAttributes).save();
 };
 
 const getAnimal = ({ id }) => Pet.where({ id }).fetch();
