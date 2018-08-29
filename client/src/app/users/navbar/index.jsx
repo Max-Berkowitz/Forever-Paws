@@ -21,10 +21,10 @@ const Header = styled.header`
 const NavBar = () => (
   <Header>
     <nav style={{ textAlign: 'center', padding: '20px' }}>
-      <a href="/auth/logout">
+      <Link to="/user">
         <img src={profile} style={{ float: 'left', color: 'white', height: '30px', width: '30px' }} alt="profile" />
-      </a>
-      <Link to="/">
+      </Link>
+      <Link to="/pets">
         <span style={{ paddingleft: '20px', color: 'white', fontSize: '28px' }}> Paws.</span>
       </Link>
       <Link to="/topdogs">

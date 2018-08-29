@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { get } from 'axios';
+import NavComponent from '../../navbar/index';
 import PetListEntry from './PetListEntry';
 import PopupEditor from './PopupEditor';
 
@@ -33,6 +34,7 @@ export default class extends Component {
     const { myPets, popUp, petToEdit, petId } = this.state;
     return (
       <div style={{ backgroundImage: 'linear-gradient(-155deg, #6868fd, #fa85a1)', height: `${70 * myPets.length}vh` }}>
+        <NavComponent />
         <ul>
           {myPets.map(pet => (
             <PetListEntry pet={pet} pickPet={this.pickPet} />

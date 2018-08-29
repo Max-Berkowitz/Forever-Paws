@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { post } from 'axios';
 import bg from './images/bg.jpg';
@@ -135,6 +135,9 @@ const LandingPage = () => (
           <Button type="button" onClick={makeData}>
             Load Data
           </Button>
+          <Link to="/portal">
+            <Button type="button">Shelters</Button>
+          </Link>
         </div>
       </nav>
       <div className="container" style={{ maxWidth: '80%' }}>

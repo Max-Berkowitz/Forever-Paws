@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import Account from './Account';
+import React, { Component, Fragment } from 'react';
 import Nav from '../navbar/index';
+import MyPets from './PetListEntries';
 
 export default class extends Component {
   constructor(props) {
@@ -9,12 +9,11 @@ export default class extends Component {
   }
 
   render() {
-    const { view } = this.state;
     return (
-      <div>
+      <Fragment>
         <Nav />
-        <Account />
-      </div>
+        <MyPets />
+      </Fragment>
     );
   }
 }
