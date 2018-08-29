@@ -69,4 +69,4 @@ const deleteRes = (dbFunction, errMessage = 'Item Not Found', status = 204, errS
   }
 };
 
-export { checkUser, checkShelter, hashPass, checkPass, getRes, postRes, patchRes, deleteRes };
+export { checkUser, hashPass, checkPass, getRes, postRes, patchRes, deleteRes };
